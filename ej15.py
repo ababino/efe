@@ -6,12 +6,6 @@ import inspect
 import argparse
 
 
-parser = argparse.ArgumentParser(description='Resuleve el ejercicio 15 de la guia 2.')
-parser.add_argument('items', metavar='I', type=str, nargs='+',
-                    help='Los items a resolver')
-args = parser.parse_args()
-print args
-
 def binomial_sample(n, p):
 	"""
 	Take a sample of size n from a binomial distribution with
@@ -36,11 +30,10 @@ def poisson(k, l):
 
 def my_hist(data, bins, **kwargs):
 	y, bin_edges = np.histogram(data, bins=bins)
-	bincenters = 0.5 * (bin_edges[1:]+bin_edges[:-1])
 	normalization = sum(y)
-	y = y / normalization
 	yerr = np.sqrt(y) / normalization
-	plt.bar(bincenters, y, yerr=yerr, **kwargs)
+	y = y.astype(np.float) / normalization
+	plt.bar(bin_edges[:-1], y, yerr=yerr, width=1.0, **kwargs)
 
 
 class Detector(object):
@@ -77,7 +70,7 @@ def exp1():
 	hist_data = [detector.detectar(n) for x in xrange(1000)]
 	theory_x = range(0, n + 1)
 	theory_y = [binomial(x, n, detector.eficiencia) for x in theory_x]
-	plt.hist(hist_data, bins=np.arange(0.5, 15.5), normed=1, label=r'$Simulaci\'on$')
+	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel('Fotones detectados')
 	plt.ylabel('Tasa')
@@ -93,7 +86,7 @@ def exp2():
 	hist_data = [fuente.emitir(delta_t) for x in xrange(1000)]
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente.intensidad * delta_t) for k in theory_x]
-	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel(r'$N\'umero\ de\ Fotones\ Emitidos$')
 	plt.ylabel(r'$Tasa$')
@@ -115,7 +108,7 @@ def exp3():
 		hist_data.append(photones_detectados)
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente.intensidad * detector.eficiencia * delta_t) for k in theory_x]
-	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
 	plt.ylabel(r'$Tasa$')
@@ -135,7 +128,7 @@ def exp4():
 		hist_data.append(photones_detectados)
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente_detector.eficiencia_conjunta * delta_t) for k in theory_x]
-	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
 	plt.ylabel(r'$Tasa$')
@@ -169,4 +162,8 @@ def main(args):
 
 
 if __name__ == '__main__':
+	parser = argparse.ArgumentParser(description='Resuleve el ejercicio 15 de la guia 2.')
+	parser.add_argument('items', metavar='I', type=str, nargs='+',
+	                    help='Los items a resolver')
+	args = parser.parse_args()
 	main(args)
