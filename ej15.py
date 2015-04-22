@@ -34,6 +34,15 @@ def poisson(k, l):
 	return l**k * np.exp(-l) / np.math.factorial(k)
 
 
+def my_hist(data, bins, **kwargs):
+	y, bin_edges = np.histogram(data, bins=bins)
+	bincenters = 0.5 * (bin_edges[1:]+bin_edges[:-1])
+	normalization = sum(y)
+	y = y / normalization
+	yerr = np.sqrt(y) / normalization
+	plt.bar(bincenters, y, yerr=yerr, **kwargs)
+
+
 class Detector(object):
 	def __init__(self):
 		self.eficiencia = 0.75
