@@ -3,7 +3,14 @@ from matplotlib import pyplot as plt
 import numpy as np
 from scipy.special import binom
 import inspect
+import argparse
 
+
+parser = argparse.ArgumentParser(description='Resuleve el ejercicio 15 de la guia 2.')
+parser.add_argument('items', metavar='I', type=str, nargs='+',
+                    help='Los items a resolver')
+args = parser.parse_args()
+print args
 
 def binomial_sample(n, p):
 	"""
@@ -42,6 +49,17 @@ class Fuente(object):
 		self.p = self.intensidad * self.dt
 	def emitir(self, delta_t):
 		return binomial_sample(int(self.n * delta_t), self.p)
+
+
+class Fuente_Detector(object):
+	def __init__(self):
+		self.fuente = Fuente()
+		self.detector = Detector()
+		self.eficiencia_conjunta = self.fuente.intensidad * self.detector.eficiencia
+		self.p = self.fuente.p * self.detector.eficiencia
+	def emitir_detectar(self, delta_t):
+		n_samp = int(self.fuente.n * delta_t)
+		return binomial_sample(n_samp, self.p)
 
 
 def exp1():
@@ -98,22 +116,48 @@ def exp3():
 	plt.show()
 
 
+def exp4():
+	fuente_detector = Fuente_Detector()
+	delta_t = 1.
+	N = int(fuente_detector.fuente.n * delta_t)
+	hist_data = []
+	for i in xrange(1000):
+		photones_detectados = fuente_detector.emitir_detectar(delta_t)
+		hist_data.append(photones_detectados)
+	theory_x = range(0, 40)
+	theory_y = [poisson(k, fuente_detector.eficiencia_conjunta * delta_t) for k in theory_x]
+	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
+	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
+	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
+	plt.ylabel(r'$Tasa$')
+	plt.legend()
+	plt.xlim([0, 35])
+	plt.savefig('fige.jpg')
+	plt.show()	
 
-def main():
+
+def main(args):
 	n = 10
 	p = 0.7
 	s = binomial_sample(n, p)
 	print '-----Ejercicio 15-------'
-	print '-----a)-------'
-	print inspect.getsource(binomial_sample)
-	print 'n = %s, p = %s, s= %s' % (n, p, s)
-	print '-----b)-------'
-	exp1()
-	print '-----c)-------'
-	exp2()
-	print '-----d)-------'
-	exp3()
+	if 'a' in args.items:
+		print '-----a)-------'
+		print inspect.getsource(binomial_sample)
+		print 'n = %s, p = %s, s= %s' % (n, p, s)
+	if 'b' in args.items:
+		print '-----b)-------'
+		exp1()
+	if 'c' in args.items:
+		print '-----c)-------'
+		exp2()
+	if 'd' in args.items:
+		print '-----d)-------'
+		exp3()
+	if 'e' in args.items:
+		print '-----e)-------'
+		exp4()
 
 
 if __name__ == '__main__':
-	main()
+	main(args)
