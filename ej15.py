@@ -23,6 +23,10 @@ def binomial(x, n, p):
 	return binom(n, x) * p**x * (1-p)**(n-x)
 
 
+def poisson(k, l):
+	return l**k * np.exp(-l) / np.math.factorial(k)
+
+
 class Detector(object):
 	def __init__(self):
 		self.eficiencia = 0.75
@@ -60,8 +64,8 @@ def exp2():
 	delta_t = 1.
 	N = int(fuente.n * delta_t)
 	hist_data = [fuente.emitir(delta_t) for x in xrange(1000)]
-	theory_x = range(0, N + 1)
-	theory_y = [binomial(x, N, fuente.p) for x in theory_x]
+	theory_x = range(0, 40)
+	theory_y = [poisson(k, fuente.intensidad * delta_t) for k in theory_x]
 	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel(r'$N\'umero\ de\ Fotones\ Emitidos$')
@@ -70,6 +74,29 @@ def exp2():
 	plt.xlim([0, 35])
 	plt.savefig('figc.jpg')
 	plt.show()
+
+
+def exp3():
+	fuente = Fuente()
+	detector = Detector()
+	delta_t = 1.
+	N = int(fuente.n * delta_t)
+	hist_data = []
+	for i in xrange(1000):
+		fotones_emitidos = fuente.emitir(delta_t)
+		photones_detectados = detector.detectar(fotones_emitidos)
+		hist_data.append(photones_detectados)
+	theory_x = range(0, 40)
+	theory_y = [poisson(k, fuente.intensidad * detector.eficiencia * delta_t) for k in theory_x]
+	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
+	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
+	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
+	plt.ylabel(r'$Tasa$')
+	plt.legend()
+	plt.xlim([0, 35])
+	plt.savefig('figd.jpg')
+	plt.show()
+
 
 
 def main():
@@ -84,6 +111,8 @@ def main():
 	exp1()
 	print '-----c)-------'
 	exp2()
+	print '-----d)-------'
+	exp3()
 
 
 if __name__ == '__main__':
