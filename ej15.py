@@ -33,11 +33,11 @@ class Detector(object):
 class Fuente(object):
 	def __init__(self):
 		self.intensidad = 15.
+		self.n = 1000
+		self.dt = 1. / self.n
+		self.p = self.intensidad * self.dt
 	def emitir(self, delta_t):
-		n = 1000 * delta_t
-		dt = delta_t / n
-		p = I*dt
-		return binomial_sample(n, p)
+		return binomial_sample(int(self.n * delta_t), self.p)
 
 
 def exp1():
@@ -56,15 +56,13 @@ def exp1():
 
 
 def exp2():
-	I = 15.
+	fuente = Fuente()
 	delta_t = 1.
-	n = 1000
-	dt = delta_t / n
-	p = I*dt
-	hist_data = [binomial_sample(n, p) for x in xrange(1000)]
-	theory_x = range(0, n + 1)
-	theory_y = [binomial(x, n, p) for x in theory_x]
-	plt.hist(hist_data, bins=np.arange(0.5, 1000.5), normed=1, label=r'$Simulaci\'on$')
+	N = int(fuente.n * delta_t)
+	hist_data = [fuente.emitir(delta_t) for x in xrange(1000)]
+	theory_x = range(0, N + 1)
+	theory_y = [binomial(x, N, fuente.p) for x in theory_x]
+	plt.hist(hist_data, bins=np.arange(0.5, N + .5), normed=1, label=r'$Simulaci\'on$')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel(r'$N\'umero\ de\ Fotones\ Emitidos$')
 	plt.ylabel(r'$Tasa$')
