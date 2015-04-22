@@ -4,6 +4,7 @@ import numpy as np
 from scipy.special import binom
 import inspect
 
+
 def binomial_sample(n, p):
 	"""
 	Take a sample of size n from a binomial distribution with
@@ -27,6 +28,16 @@ class Detector(object):
 		self.eficiencia = 0.75
 	def detectar(self, numero_fotones):
 		return binomial_sample(numero_fotones, self.eficiencia)
+
+
+class Fuente(object):
+	def __init__(self):
+		self.intensidad = 15.
+	def emitir(self, delta_t):
+		n = 1000 * delta_t
+		dt = delta_t / n
+		p = I*dt
+		return binomial_sample(n, p)
 
 
 def exp1():
