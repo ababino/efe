@@ -22,6 +22,13 @@ def binomial(x, n, p):
 	return binom(n, x) * p**x * (1-p)**(n-x)
 
 
+class Detector(object):
+	def __init__(self):
+		self.eficiencia = 0.75
+	def detectar(self, numero_fotones):
+		return binomial_sample(numero_fotones, self.eficiencia)
+
+
 def exp1():
 	n = 15
 	p = 0.75
