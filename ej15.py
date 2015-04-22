@@ -6,7 +6,7 @@ from scipy.special import binom
 
 def binomial_sample(n, p):
 	"""
-	Take a sample of size n from a binamial distribution with
+	Take a sample of size n from a binomial distribution with
 	success probability equal p.
 	Returns the number of sucesses.
 	"""
