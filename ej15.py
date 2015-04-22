@@ -21,14 +21,17 @@ def binomial_sample(n, p):
 
 
 def binomial(x, n, p):
+	"""The binomial density function. """
 	return binom(n, x) * p**x * (1-p)**(n-x)
 
 
 def poisson(k, l):
+	"""The Poisson density function"""
 	return l**k * np.exp(-l) / np.math.factorial(k)
 
 
 def my_hist(data, bins, **kwargs):
+	"""Histogram with poissonian error bars."""
 	y, bin_edges = np.histogram(data, bins=bins)
 	normalization = sum(y)
 	yerr = np.sqrt(y) / normalization
@@ -37,6 +40,7 @@ def my_hist(data, bins, **kwargs):
 
 
 class Detector(object):
+	"""Detector de fotones."""
 	def __init__(self):
 		self.eficiencia = 0.75
 	def detectar(self, numero_fotones):
@@ -44,6 +48,7 @@ class Detector(object):
 
 
 class Fuente(object):
+	"""Fuente emisora de fotones."""
 	def __init__(self):
 		self.intensidad = 15.
 		self.n = 1000
@@ -54,6 +59,7 @@ class Fuente(object):
 
 
 class Fuente_Detector(object):
+	"""Objecto conjunto fuente detector."""
 	def __init__(self):
 		self.fuente = Fuente()
 		self.detector = Detector()
