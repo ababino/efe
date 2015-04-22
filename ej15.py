@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+"""Resuleve el ejercicio 15 de la guia 2."""
 import random
 from matplotlib import pyplot as plt
 import numpy as np
@@ -170,6 +172,6 @@ def main(args):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Resuleve el ejercicio 15 de la guia 2.')
 	parser.add_argument('items', metavar='I', type=str, nargs='+',
-	                    help='Los items a resolver')
+	                    help='Los items a resolver.')
 	args = parser.parse_args()
 	main(args)
