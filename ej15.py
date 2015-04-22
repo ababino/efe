@@ -29,8 +29,8 @@ def exp1():
 	hist_data = [binomial_sample(n, p) for x in xrange(1000)]
 	theory_x = range(0, n + 1)
 	theory_y = [binomial(x, n, p) for x in theory_x]
-	plt.hist(hist_data, normed=1, label=r'$Simulaci\'on$')
-	plt.plot(theory_x, theory_y, 'k-', label=r'$Distribuci\'on\ Te\'orica$')
+	plt.hist(hist_data, bins=np.arange(0.5, 15.5), normed=1, label=r'$Simulaci\'on$')
+	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel('Fotones detectados')
 	plt.ylabel('Tasa')
 	plt.legend(loc='upper left')
