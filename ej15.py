@@ -10,9 +10,8 @@ import argparse
 
 def binomial_sample(n, p):
 	"""
-	Takes a sample of size n from a binomial distribution with
-	success probability equal p.
-	Returns the number of sucesses.
+	Takes a sample of size n from a binomial distribution with a success
+	probability equal p. Returns the number of sucesses.
 	"""
 	s = 0
 	for i in xrange(n):
