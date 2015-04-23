@@ -38,7 +38,7 @@ def my_hist(data, bins, **kwargs):
 	normalization = sum(y)
 	yerr = np.sqrt(y) / normalization
 	y = y.astype(np.float) / normalization
-	plt.bar(bin_edges[:-1], y, yerr=yerr, width=1.0, **kwargs)
+	plt.bar(bin_edges[:-1], y, yerr=yerr, width=1.0, ecolor='r', **kwargs)
 
 
 class Detector(object):
@@ -151,7 +151,7 @@ def exp4():
 	plt.legend()
 	plt.xlim([0, 35])
 	plt.savefig('fige.jpg')
-	plt.show()	
+	plt.show()
 
 
 def main(args):
