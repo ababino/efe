@@ -10,7 +10,7 @@ import argparse
 
 def binomial_sample(n, p):
 	"""
-	Take a sample of size n from a binomial distribution with
+	Takes a sample of size n from a binomial distribution with
 	success probability equal p.
 	Returns the number of sucesses.
 	"""
@@ -84,7 +84,7 @@ def exp1():
 	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label=r'$Simulaci\'on$',
 			err_type='binomial')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
-	plt.xlabel('$N\'umero Fotones detectados$')
+	plt.xlabel(r'$N\'umero\ Fotones\ detectados$')
 	plt.ylabel('$Frecuencia$')
 	plt.legend(loc='upper left')
 	plt.savefig('figb.jpg')
