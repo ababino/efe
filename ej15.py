@@ -32,11 +32,14 @@ def poisson(k, l):
 	return l**k * np.exp(-l) / np.math.factorial(k)
 
 
-def my_hist(data, bins, **kwargs):
+def my_hist(data, bins, err_type='poisson', **kwargs):
 	"""Histogram with poissonian error bars."""
 	y, bin_edges = np.histogram(data, bins=bins)
 	normalization = sum(y)
-	yerr = np.sqrt(y) / normalization
+	if err_type == 'poisson':
+		yerr = np.sqrt(y) / normalization
+	elif err_type == 'binomial':
+		yerr = np.sqrt(y * ( 1 - y / normalization)) / normalization
 	y = y.astype(np.float) / normalization
 	plt.bar(bin_edges[:-1], y, yerr=yerr, width=1.0, ecolor='r', **kwargs)
 
@@ -78,7 +81,8 @@ def exp1():
 	hist_data = [detector.detectar(n) for x in xrange(1000)]
 	theory_x = range(0, n + 1)
 	theory_y = [binomial(x, n, detector.eficiencia) for x in theory_x]
-	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label=r'$Simulaci\'on$')
+	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label=r'$Simulaci\'on$',
+			err_type='binomial')
 	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel('Fotones detectados')
 	plt.ylabel('Tasa')
