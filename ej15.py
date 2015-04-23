@@ -91,6 +91,14 @@ def exp2():
 	fuente = Fuente()
 	delta_t = 1.
 	N = int(fuente.n * delta_t)
+	theory_x = range(0, 5)
+	theory_y = [poisson(k, fuente.intensidad * fuente.dt) for k in theory_x]
+	print(theory_y)
+	plt.plot(theory_x, theory_y, 'k--*')
+	plt.xlabel(r'$N\'umero\ de\ Eventos$')
+	plt.ylabel(r'$Tasa$')
+	plt.savefig('poisson.jpg')
+	plt.show()
 	hist_data = [fuente.emitir(delta_t) for x in xrange(1000)]
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente.intensidad * delta_t) for k in theory_x]
@@ -158,6 +166,7 @@ def main(args):
 	if 'b' in args.items:
 		print '-----b)-------'
 		exp1()
+
 	if 'c' in args.items:
 		print '-----c)-------'
 		exp2()
