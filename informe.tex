@@ -10,9 +10,12 @@
 
 \begin{document}
 \maketitle
+\section{Introducción}
+El lenguage utilizado para programar todas los ítems fue Python.
+El código utilizado para generar los datos, gráficos y este mismo informe fue controlado con git y está almacenado en https://github.com/ababino/efe.
 
 \section{Item a}
-Abajo copio el código de un programa que cuenta el número de éxitos de n experimentos de bernulli  con probabilidad de éxito p.
+Abajo se encuentra el código de un programa que cuenta el número de éxitos de n experimentos de bernulli  con probabilidad de éxito p.
 \begin{lstlisting}
 def binomial_sample(n, p):
     """
@@ -127,6 +130,27 @@ Efectivamente en la figura \ref{fig:iteme} se obseva esta simulación y se puede
 \end{figure}
 
 \section{Item f}
+Todos los histogramas de este informe tiene barras de error.
+En este ítem vamos a justificar el tamaño de las mismas.
+
+Supongamos que para confeccionar un histograma utilizamos n datos (en todos los histograms de este informe se usó $n=1000$).
+Consideremos un casillero en particular de este histograma.
+La probabilidad de que un determinado dato en ese casillero será un dado valor $p$.
+Luego de realizar el histograma podemos estmar $p$ como el número de eventos, $k$, que efectivamente calleron en esta realización en el casillero en cuestión sobre el numero de datos totales $n$.
+Es decir que $\hat p = \frac{k}{n}$.
+Considerando que la probabilidad $q$ de que un dato no caiga en el casillero en cuestión se puede estimar como $\hat q = 1 - \hat p$ vemos que estamos en presencia de un proceso binomial.
+Entonces el número de datos que caen en un determinado casillero seguirá un distribución binomial de parámetros $n$ y $p$.
+El desvío estandar de esta distribución se puede estimar como $\hat \sigma(k) = \sqrt{k (1 - \frac{k}{n})}$.
+
+En el caso en el que $p\rightarrow 0$ se puede aproximar $\hat \sigma(k) = \sqrt{k}$.
+Este caso es generalment cuando el número de bines es suficientemente grande.
+En esta situación la distribución binomial se puede aproximar por la distribuión de Poisson.
+Si este no es el caso estaremos sobreestimando el erro al hacer esta aproximación.
+
+
+En todos los gráficos de este informe se usó un error poissoniano excepto en el histograma de la figura \ref{fig:itemb} que se uso el error binomial.
+
+
 
 
 
