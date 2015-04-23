@@ -48,9 +48,22 @@ La distribución de fotones emitidos en un intervalo de tiempo $t$ seguirá una 
 
 $$\text{número\ de\ fotones} = \frac{(\lambda t)^k}{k!} e^{-\lambda t}$$
 
-Si consideramos un tiempo $dt=0.001s$ la probabilidad de que uestra fuenta
+En la figura \ref{fig:poisson} vemos la distribución de Poisson cuando $\lambda=15$ y $t=0.001$. 
+Con estos parámetros la probabilidad de que no ocurra ningún evento es del 98.51\% y la probabilidad de que ocurra un único evento es del $1.48\%$.
+Estas dos probabilidades sumadas dan $99.99\%$  lo que quiere decir que la probabilidad de que sucedan dos o más eventos es $0.01\%$.
+Vemos que la probabilidad de que ocurran 2 eventos es suficientemente pequeña como para suponer que no se observaran este tipo de eventos si repetimos el experimento $1000$ veces, es decir durante $1s$.
+Es por esto que podemos simular la emisión de fotones como una sucesión de eventos binomiales.
 
-En un intervalo de tiempo $dt=0.001s$ la probabilidad de emitir  
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{poisson.jpg}
+\caption[]{Distribución de probabilidad de Poisson con paramtetro $\lambda=0.015$}
+\label{fig:poisson}
+\end{figure}
+
+Con esto en mente utilizamos nuevamente el programa \textit{binomial\_sample} para simular una fuente con estas características.
+En la figura \ref{fig:itemc} se observa el histograma de eventos simulados de esta manera y en linea negra la distribución de Poisson correspondiente. Se observa un buen acuerdo, lo que significa que la aproximación que hicimos es razonable.
+
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{figc.jpg}
