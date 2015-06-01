@@ -111,7 +111,7 @@ def r_marginal(r):
 
 
 def theta_marginal(theta):
-	return 0.5 * np.cos(theta)
+	return 0.5 * np.sin(theta)
 
 
 def phi_marginal(phi):
@@ -121,13 +121,13 @@ def phi_marginal(phi):
 def g4ej10():
 	v = random_densidad(1000)
 	r = [np.sqrt(x**2 + y**2 + z**2) for (x, y, z) in v]
-	phi = [atan2(y, x) for (x, y, z) in v]
-	theta = [atan2(z, np.sqrt(x**2 + y**2)) for (x, y, z) in v]
+	phi = [atan2(y, x) + np.pi for (x, y, z) in v]
+	theta = [atan2(z, np.sqrt(x**2 + y**2)) + np.pi/2 for (x, y, z) in v]
 	r_x = np.linspace(0, 1, 1000)
 	r_y = r_marginal(r_x)
-	phi_x = np.linspace(-np.pi, np.pi, 1000)
+	phi_x = np.linspace(0, 2*np.pi, 1000)
 	phi_y = phi_marginal(phi_x)
-	theta_x = np.linspace(-np.pi/2, np.pi/2, 1000)
+	theta_x = np.linspace(0, np.pi, 1000)
 	theta_y = theta_marginal(theta_x)
 	
 	plt.figure(1)
@@ -139,7 +139,7 @@ def g4ej10():
 	plt.savefig('g4ej10_r.jpg')
 
 	plt.figure(2)
-	my_hist(phi, bins=np.linspace(-np.pi, np.pi, 20), label=r'$Simulaci\'on$',
+	my_hist(phi, bins=np.linspace(0, 2*np.pi, 20), label=r'$Simulaci\'on$',
 			err_type='binomial')
 	plt.plot(phi_x, phi_y, '--k', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel('phi')
@@ -147,7 +147,7 @@ def g4ej10():
 	plt.savefig('g4ej10_phi.jpg')
 
 	plt.figure(3)
-	my_hist(theta, bins=np.linspace(-np.pi/2, np.pi/2, 20), label=r'$Simulaci\'on$',
+	my_hist(theta, bins=np.linspace(0, np.pi, 20), label=r'$Simulaci\'on$',
 			err_type='binomial')
 	plt.plot(theta_x, theta_y, '--k', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.xlabel('theta')
