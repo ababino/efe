@@ -72,13 +72,14 @@ $$  \Delta > \frac{1}{N f(x_{intermedio})} $$
 \section{Guía 4, Ejercicio 10}
 
 \subsection{Ítem a}
+Para calclular la densidad de probabilidad conjunta tengo que hallar la constante que normaliza a la densidad $\rho(r)$
 $$f(r, \theta, \phi) = A \rho(r) $$
 $$A = \frac{1}{\int_0^1 \int_0^{2\pi} \int_0^{\pi}\rho(r) sen(\theta) r^2 d\phi d\theta dr} $$
 $$A = \frac{1}{\rho_0 \pi (4 - \pi)} $$
-
 $$f(r, \theta, \phi) = \frac{1}{\pi (4 - \pi)} \frac{1}{1 + r^2} $$
 
 \subsection{Ítem b}
+Para calcular la distribución marginal de cada una de las coordenadas debo integrar la porbabilidad conjunta en todas las otras coordenadas. Siempre tengo que tener cuidado de usar el jacobiano adecuadamente.
 
 $$f(r) = \int_0^{2\pi}\int_0^{\pi} f(r, \theta, \phi) sen(\theta) r^2 d\theta d\phi$$
 $$f(r) = \frac{4 r^2}{(4 - \pi) (1 + r^2)}$$
@@ -89,7 +90,13 @@ $$f(\theta) = \frac{1}{2} sen(\theta)$$
 $$f(\phi) = \int_0^1 \int_0^{\pi}  f(r, \theta, \phi) sen(\theta) r^2 d\theta dr$$
 $$f(\theta) = \frac{1}{2\pi}$$
 
+Las tres coordenadas son independientes pués se puede ver que la distribución conjunta es igual a la multiplicación de las marginales (si tenemos en cuenta el jacobiano).
+
 \subsection{Ítem c}
+
+Usando el método me Monte Carlo se simularon $1000$ vectores y a partir de ellos se calcularon sus coordenadas esféricas.
+En los gráficos de las figuras \ref{g4ej10_r}, \ref{g4ej10_r} y \ref{g4ej10_r} se observa la comparación de esta simulación y las respectivas curvas teóricas. 
+
 
 \begin{figure}
 \centering
@@ -102,14 +109,14 @@ $$f(\theta) = \frac{1}{2\pi}$$
 \centering
 \includegraphics[width=0.75\textwidth]{g4ej10_phi.jpg}
 \caption[]{}
-\label{fig:g4ej10_phi}
+\label{fig:g4ej10_r}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{g4ej10_theta.jpg}
 \caption[]{}
-\label{fig:g4ej10_theta}
+\label{fig:g4ej10_r}
 \end{figure}
 
 
