@@ -20,8 +20,8 @@ def exp_random_variable(l):
 def my_hist(data, bins, err_type='poisson', **kwargs):
 	"""Histogram with poissonian error bars."""
 	y, bin_edges = np.histogram(data, bins=bins)
-	width = bin_edges[1] - bin_edges[0]
-	normalization = width * sum(y)
+	width = bin_edges[1:] - bin_edges[0:-1]
+	normalization = width[0] * sum(y)
 	if err_type == 'poisson':
 		yerr = np.sqrt(y) / normalization
 	elif err_type == 'binomial':
@@ -75,12 +75,28 @@ def ej9():
 	exp_rand = [exp_random_variable(l) for x in range(n)]
 	x = np.arange(0.5, 30.5)
 	y = l*np.exp(-l*x)
+
+	plt.figure(1)
 	my_hist(exp_rand, bins=np.arange(0, 31), label=r'$Simulaci\'on$',
 			err_type='binomial')
 	plt.plot(x, y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
 	plt.ylabel('$Frecuencia$')
 	plt.legend(loc='upper left')
-	plt.savefig('ej9b.jpg')
+	plt.savefig('ej9b_1.jpg')
+
+	exp_rand = [exp_random_variable(l) for x in range(n)]
+	x = np.arange(0.5, 30.5)
+	y = l*np.exp(-l*x)
+	bins  = np.concatenate([np.arange(0, 15), np.arange(15, 31, 2)])
+
+	plt.figure(2)
+	my_hist(exp_rand, bins=bins, label=r'$Simulaci\'on$',
+			err_type='binomial')
+	plt.plot(x, y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
+	plt.ylabel('$Frecuencia$')
+	plt.legend(loc='upper left')
+	plt.savefig('ej9b_2.jpg')
+
 	plt.show()
 
 
@@ -166,8 +182,8 @@ def main():
 
 	print '-----Ejercicio 9-------'
 	print '-----b)-------'
-	#print ej9()
-	g4ej10()
+	print ej9()
+	#g4ej10()
 
 if __name__ == '__main__':
 	main()

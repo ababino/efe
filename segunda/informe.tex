@@ -30,19 +30,43 @@ Cuando $|x|$ es mayor a $6$ las colas gaussianas ya son menos pesadas que la de 
 \end{figure}
 
 \section{Guía 3, Ejercicio 9, Ítem b}
+Para generar una variable aleatoria con distribución exponencial busco una función de una variable aleatoria uniforme que tenga distribución exponencial:
 $$f (x) = U(0, 1)$$
-$$ g(y) = \lambda e^(-\lambda y)$$
+$$ g(y) = \lambda e^{-\lambda y}$$
 $$g(y) \frac{dy}{dx} dx= f(x) dx $$
 
-$$\lambda e^(-\lambda y) \frac{dy}{dx} = 1 $$
+$$\lambda e^{-\lambda y} \frac{dy}{dx} = 1 $$
 
 $$ y = -\frac{1}{\lambda} ln(1-x)$$
 
+Entonces $y = -\frac{1}{\lambda} ln(1-x)$ es una variable aleatoria con distribución exponencial si $x$ tiene distribución uniforme.
+
+En el gráfico de la figura \ref{fig:ej9b_1} se observa el resultado de implementar computacionalmente el método anterior.
+
+En el gráfico de la figura \ref{fig:ej9b_2} se usaron bines de ancho $2$ para valores mayores a $15$.
+En general para visualizar correctamente un histograma uno quiere que haya al menos un dato por bin. 
+Si llamamos $n$ al número de resultdos que caen dentro de un determinado bin, $N$ al número total de datos y $f$ a la distribución de la variable aleatoria podemos estimar $n$ como:
+
+$$ \hat n = N \int_{x_i}^{x_f} f(x) dx$$
+$$ \hat n \sim N \Delta f(x_{intermedio}) $$
+
+Donde aproximamos la función $f$ por una constante y llamamos $\Delta$ al ancho del bin.
+Con este resultado podemos hallar una cota inferior al tamaño del bin pidiendo que $n>1$.
+
+$$  \Delta > \frac{1}{N f(x_{intermedio})} $$
+
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{ej9b.jpg}
+\includegraphics[width=0.75\textwidth]{ej9b_1.jpg}
 \caption[]{}
-\label{fig:ej9b}
+\label{fig:ej9b_1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{ej9b_2.jpg}
+\caption[]{}
+\label{fig:ej9b_2}
 \end{figure}
 
 \section{Guía 4, Ejercicio 10}
