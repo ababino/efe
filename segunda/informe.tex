@@ -72,11 +72,11 @@ $$  \Delta > \frac{1}{N f(x_{intermedio})} $$
 \section{Guía 4, Ejercicio 10}
 
 \subsection{Ítem a}
-Para calclular la densidad de probabilidad conjunta tengo que hallar la constante que normaliza a la densidad $\rho(r)$
+Para calclular la densidad de probabilidad conjunta tengo que hallar la constante que normaliza a la densidad $\rho(r)$ y multiplicarlo por el jacobiano de la tranformación a coordenadas esféricas.
 $$f(r, \theta, \phi) = A \rho(r) $$
 $$A = \frac{1}{\int_0^1 \int_0^{2\pi} \int_0^{\pi}\rho(r) sen(\theta) r^2 d\phi d\theta dr} $$
 $$A = \frac{1}{\rho_0 \pi (4 - \pi)} $$
-$$f(r, \theta, \phi) = \frac{1}{\pi (4 - \pi)} \frac{1}{1 + r^2} $$
+$$f(r, \theta, \phi) = \frac{1}{\pi (4 - \pi)} \frac{r^2}{1 + r^2} sen(\theta)$$
 
 \subsection{Ítem b}
 Para calcular la distribución marginal de cada una de las coordenadas debo integrar la porbabilidad conjunta en todas las otras coordenadas. Siempre tengo que tener cuidado de usar el jacobiano adecuadamente.
