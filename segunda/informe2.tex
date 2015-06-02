@@ -18,8 +18,8 @@ El código utilizado para generar los datos, gráficos y este mismo informe fue 
 
 \section{Guía 3, Ejercicio 4, Ítem b}
 En el gráfico de la figura \ref{fig:ej4b} se muestra la superposición de la distribución de Cauchy y la suma de dos Gaussianas.
-Para x suficientemente chicos se ve que hay un acuerdo entre las dos distribucíones. 
-Cuando $|x|$ es mayor a $6$ las colas gaussianas ya son menos pesadas que la de la disribución de Cauchy.
+Para x suficientemente chicos se ve que hay un acuerdo entre las dos distribuciones. 
+Cuando $|x|$ es mayor a $6$ las colas gaussianas ya son menos pesadas que la de la distribución de Cauchy.
 
 
 \begin{figure}
@@ -45,7 +45,7 @@ En el gráfico de la figura \ref{fig:ej9b_1} se observa el resultado de implemen
 
 En el gráfico de la figura \ref{fig:ej9b_2} se usaron bines de ancho $2$ para valores mayores a $15$.
 En general para visualizar correctamente un histograma uno quiere que haya al menos un dato por bin. 
-Si llamamos $n$ al número de resultdos que caen dentro de un determinado bin, $N$ al número total de datos y $f$ a la distribución de la variable aleatoria podemos estimar $n$ como:
+Si llamamos $n$ al número de resultados que caen dentro de un determinado bin, $N$ al número total de datos y $f$ a la distribución de la variable aleatoria podemos estimar $n$ como:
 
 $$ \hat n = N \int_{x_i}^{x_f} f(x) dx$$
 $$ \hat n \sim N \Delta f(x_{intermedio}) $$
@@ -72,14 +72,14 @@ $$  \Delta > \frac{1}{N f(x_{intermedio})} $$
 \section{Guía 4, Ejercicio 10}
 
 \subsection{Ítem a}
-Para calclular la densidad de probabilidad conjunta tengo que hallar la constante que normaliza a la densidad $\rho(r)$ y multiplicarlo por el jacobiano de la tranformación a coordenadas esféricas.
+Para calcular la densidad de probabilidad conjunta tengo que hallar la constante que normaliza a la densidad $\rho(r)$ y multiplicarlo por el jacobiano de la transformación a coordenadas esféricas.
 $$f(r, \theta, \phi) = A \rho(r) $$
 $$A = \frac{1}{\int_0^1 \int_0^{2\pi} \int_0^{\pi}\rho(r) sen(\theta) r^2 d\phi d\theta dr} $$
 $$A = \frac{1}{\rho_0 \pi (4 - \pi)} $$
 $$f(r, \theta, \phi) = \frac{1}{\pi (4 - \pi)} \frac{r^2}{1 + r^2} sen(\theta)$$
 
 \subsection{Ítem b}
-Para calcular la distribución marginal de cada una de las coordenadas debo integrar la porbabilidad conjunta en todas las otras coordenadas. Siempre tengo que tener cuidado de usar el jacobiano adecuadamente.
+Para calcular la distribución marginal de cada una de las coordenadas debo integrar la probabilidad conjunta en todas las otras coordenadas. Siempre tengo que tener cuidado de usar el jacobiano adecuadamente.
 
 $$f(r) = \int_0^{2\pi}\int_0^{\pi} f(r, \theta, \phi) sen(\theta) r^2 d\theta d\phi$$
 $$f(r) = \frac{4 r^2}{(4 - \pi) (1 + r^2)}$$

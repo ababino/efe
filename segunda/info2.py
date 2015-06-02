@@ -177,13 +177,13 @@ def g4ej10():
 def main():
 	print '-----Ejercicio 4-------'
 	print '-----b)-------'
-	#print ej4a()
-	#print ej4b()
+	print ej4a()
+	print ej4b()
 
 	print '-----Ejercicio 9-------'
 	print '-----b)-------'
 	print ej9()
-	#g4ej10()
+	g4ej10()
 
 if __name__ == '__main__':
 	main()
