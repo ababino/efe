@@ -22,7 +22,7 @@ usando las definiciones del enunciado:
 \label{eq:error}
 \end{equation}
 
-En el gráfico de la figura \ref{fig:e6d} se muestran los datos del enunciado, el ajuste lineal y, en linea punteada, el error de ajuste usando la fórmula \ref{eq:error}.
+En el gráfico de la figura \ref{fig:e6d} se muestran los datos del enunciado, el ajuste lineal y, en linea punteada, el error del ajuste usando la fórmula \ref{eq:error}.
 
 \begin{figure}
 \centering
@@ -31,9 +31,9 @@ En el gráfico de la figura \ref{fig:e6d} se muestran los datos del enunciado, e
 \label{fig:e6d}
 \end{figure}
 
-Cómo $\sigma_a$ es una función cuadrática de $x_a$, para hallar el valor de $x_a$ que minimiza $\sigma_a$ podemos usar la famosa fórmula del vértice de una parábola $\frac{-b}{2a}$:
+Como $\sigma_a$ es una función cuadrática de $x_a$, para hallar el valor de $x_a$ que minimiza $\sigma_a$ podemos usar la famosa fórmula del vértice de una parábola $\frac{-b}{2a}$:
 $$
-x_a^{min} = -\frac{\sum_{i=1}^N x_i}{N}
+x_a^{min} = \frac{\sum_{i=1}^N x_i}{N}
 $$
 
 que es justamente el valor medio de las $x$. 
@@ -54,7 +54,7 @@ $$
 $$
 
 En la figura \ref{fig:e6e} se muestran los datos del enunciado con su ajuste y el error que se obtiene si ignoramos el término de covarianza. 
-el resultado es claramente erróneo pues no es posible que, independientemente de los datos el $x$ de mínimo error sea siempre $0$.
+El resultado es claramente erróneo pues no es posible que, independientemente de los datos, el $x$ de mínimo error sea siempre $0$.
 
 \begin{figure}
 \centering
@@ -64,7 +64,7 @@ el resultado es claramente erróneo pues no es posible que, independientemente d
 \end{figure}
 
 \section*{Ejercicio 7}
-Para verificar los resultados analíticos hallados hasta ahora escribimos un programa que genere 1000 conjunto de datos que provengan de la misma ley lineal.
+Para verificar los resultados analíticos hallados hasta ahora escribimos un programa que genera 1000 conjunto de datos que provengan de la misma ley lineal.
 Con esos mil conjuntos obtenemos 1000 ajustes y con ellos 1000 predicciones $y_a$ par aun dado $x_a=0.5$.
 Los resultados de esta simulación se muestran el el gráfico que la figura \ref{fig:e7}.
 Las barras azules muestran un histograma (normalizado) de los $y_a$ generados y la linea roja muestra una distribución gaussiana con el valor medio y la varianza teóricas calculadas en el ítem 6d. 
