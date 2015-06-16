@@ -90,7 +90,7 @@ def ej7(data_x, data_y, s):
 	print C
 	xgauss = np.arange(-1, 5, 0.01)
 	ygauss = C * np.exp(-((xgauss - mu)**2 ) / (2 * sigma**2))  
-	plt.plot(xgauss, ygauss, 'r-', label=r'$Dsitribuci\'on\ Gaussiana\ Te\'orica$')
+	plt.plot(xgauss, ygauss, 'r-', label=r'$Distribuci\'on\ Gaussiana\ Te\'orica$')
 	plt.legend()
 	plt.xlabel('$y_a$')
 	plt.ylabel('Frecuencia')
