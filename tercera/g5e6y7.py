@@ -46,6 +46,8 @@ def ej6d(data_x, data_y, s):
 	plt.plot(x, lower, 'r--', x, upper, 'r--', label='Error del Ajuste')
 	plt.legend(loc='upper left')
 	plt.grid(True)
+	plt.xlabel('x')
+	plt.ylabel('y')
 	plt.savefig('ej6d.jpg')
 	plt.show()
 
@@ -53,7 +55,7 @@ def ej6d(data_x, data_y, s):
 def ej6e(data_x, data_y, s):
 	a1, a2, Cov = lin_fit(data_x, data_y, s)
 	print a1, a2, Cov
-	x = np.arange(6)
+	x = np.arange(-4, 6, 0.1)
 	y_fit = a1 + a2*x
 	plt.errorbar(data_x, data_y, s, fmt='.', label='Datos')
 	plt.plot(x, y_fit, 'r-', label='Ajuste')
@@ -61,6 +63,10 @@ def ej6e(data_x, data_y, s):
 	plt.plot(x, lower, 'r--', x, upper, 'r--', label='Error del Ajuste')
 	plt.legend(loc='upper left')
 	plt.grid(True)
+	plt.xlabel('x')
+	plt.ylabel('y')
+	plt.xlim([-4, 4])
+	plt.ylim([-4, 6])
 	plt.savefig('ej6e.jpg')
 	plt.show()
 
