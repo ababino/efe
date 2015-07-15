@@ -85,23 +85,18 @@ def hessian(tita, xdata, ydata):
     return h
 
 
-def e13a(time, count, poi_err, a4, a5):
-    f2 = lambda x: np.exp(-x / a4)
-    f3 = lambda x: np.exp(-x / a5)
+def e13a(time, count, a4, a5):
     A = np.ones((len(time), 3))
-    A[:,1] = f2(time)
-    A[:,2] = f3(time)
+    A[:,1] = np.exp(-time / a4)
+    A[:,2] = np.exp(-time / a5)
     V = np.eye(len(time))
-    np.fill_diagonal(V, poi_err)
+    np.fill_diagonal(V, count)
     av = np.dot(A.T, np.linalg.inv(V))
     ava = np.dot(av, A)
     ava = np.linalg.inv(ava)
     avy = np.dot(av, count)
     tita = np.dot(ava, avy)
-    a23 = tita[1] / tita[2]
-    jacob = np.array([1 / tita[1], -a23 / tita[2]])
-    a23var = np.dot(np.dot(jacob, ava[1:, 1:]), jacob.T)
-    return tita, ava, a23, a23var
+    return tita, ava
 
 
 def e13b(time, count):
@@ -116,24 +111,27 @@ def e13b(time, count):
     return res, objfunhess(res.x)
 
 
-def e13c(time, count):
+def e13c(time, count, poi_err):
     x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
     objfun = lambda x: chi2(x, time, count)
     objfunjac = lambda x: jac(x, time, count)
     res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac)
-    row = res.x[4] + np.linspace(-2.5,2.5,50)
-    col = res.x[3] + np.linspace(-30,40,50)
+    row = res.x[4] + np.linspace(-3,3,50)
+    col = res.x[3] + np.linspace(-35,45,50)
     X,Y = np.meshgrid(row,col)
     f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
     Z = f(Y, X)
-    plt.contour(X, Y, Z, [objfun(res.x)+1])
+    plt.contour(X, Y, Z, [objfun(res.x)+1], colors='r')
+    x0 = res.x[:3]
     @np.vectorize
     def f(a4, a5):
-        tita, ava, a23, a23var = e13a(time, count, poi_err, a4, a5)
+        #res = optimize.minimize(lambda x: objfun([x[0], x[1], x[2], a4, a5]), x0, method='BFGS')
+        tita, ava = e13a(time, count, a4, a5)
         x = np.concatenate([tita, [a4, a5]])
-        return objfun(params)
+        return objfun(x)#res.fun
     Z = f(Y, X)
-    plt.contour(X, Y, Z, [objfun(res.x)+1])
+    plt.contour(X, Y, Z, [objfun(res.x)+1], colors='b')
+    plt.plot([res.x[4]], [res.x[3]], 'o')
     plt.show()
     return res
 
@@ -144,7 +142,10 @@ def main(args):
     a4 =209.69
     a5 =34.244
     if '13a' in args.items:
-        tita, ava, a23, a23var = e13a(time, count, poi_err, a4, a5)
+        tita, ava = e13a(time, count, a4, a5)
+        a23 = tita[1] / tita[2]
+        jacob = np.array([1 / tita[1], -a23 / tita[2]])
+        a23var = np.dot(np.dot(jacob, ava[1:, 1:]), jacob.T)
         print('Guia 6, ejercicio 13, item a')
         print('tita = ' + str(tita))
         print('V(tita) = ' + str(ava))
