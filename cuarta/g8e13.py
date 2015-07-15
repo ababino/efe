@@ -85,9 +85,7 @@ def hessian(tita, xdata, ydata):
     return h
 
 
-def e13a(time, count, poi_err):
-    a4 =209.69
-    a5 =34.244
+def e13a(time, count, poi_err, a4, a5):
     f2 = lambda x: np.exp(-x / a4)
     f3 = lambda x: np.exp(-x / a5)
     A = np.ones((len(time), 3))
@@ -103,13 +101,6 @@ def e13a(time, count, poi_err):
     a23 = tita[1] / tita[2]
     jacob = np.array([1 / tita[1], -a23 / tita[2]])
     a23var = np.dot(np.dot(jacob, ava[1:, 1:]), jacob.T)
-    print('Guia 6, ejercicio 13, item a')
-    print('tita = ' + str(tita))
-    print('V(tita) = ' + str(ava))
-    print('a2/a3 = ' + str(a23))
-    print('a23var = ' + str(a23var))
-    params = np.concatenate([tita, [a4, a5]])
-    plot_fit(params, time, count, poi_err)
     return tita, ava, a23, a23var
 
 
@@ -136,6 +127,13 @@ def e13c(time, count):
     f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
     Z = f(Y, X)
     plt.contour(X, Y, Z, [objfun(res.x)+1])
+    @np.vectorize
+    def f(a4, a5):
+        tita, ava, a23, a23var = e13a(time, count, poi_err, a4, a5)
+        x = np.concatenate([tita, [a4, a5]])
+        return objfun(params)
+    Z = f(Y, X)
+    plt.contour(X, Y, Z, [objfun(res.x)+1])
     plt.show()
     return res
 
@@ -143,13 +141,22 @@ def e13c(time, count):
 
 def main(args):
     time, count, poi_err = load_data()
+    a4 =209.69
+    a5 =34.244
     if '13a' in args.items:
-        e13a(time, count, poi_err)
+        tita, ava, a23, a23var = e13a(time, count, poi_err, a4, a5)
+        print('Guia 6, ejercicio 13, item a')
+        print('tita = ' + str(tita))
+        print('V(tita) = ' + str(ava))
+        print('a2/a3 = ' + str(a23))
+        print('a23var = ' + str(a23var))
+        params = np.concatenate([tita, [a4, a5]])
+        plot_fit(params, time, count, poi_err)
     if '13b' in args.items:
         res, H = e13b(time, count)
         print(H)
     if '13c' in args.items:
-        e13c(time, count)
+        e13c(time, count, poi_err)
 
 
 if __name__ == '__main__':
