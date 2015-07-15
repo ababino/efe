@@ -2,10 +2,10 @@
 """Resuleve el ejercicio 13 de la guia 8."""
 from matplotlib import pyplot as plt
 import numpy as np
-import seaborn as sb
+import seaborn as sns
 import argparse
 from scipy import optimize
-
+#sns.set_style("dark")
 
 def load_data():
     file_data = open('doble_exp.dat', 'r')
@@ -35,18 +35,18 @@ def fit_fun_grad(tita, xdata):
     yfitd = np.ones((len(tita), len(xdata)))
     yfitd[1, :] = np.exp(-xdata/tita[3])
     yfitd[2, :] = np.exp(-xdata/tita[4])
-    yfitd[3, :] = - tita[1] * np.exp(-xdata/tita[3]) * xdata/tita[3]**2
-    yfitd[4, :] = - tita[2] * np.exp(-xdata/tita[4]) * xdata/tita[4]**2
+    yfitd[3, :] = tita[1] * np.exp(-xdata/tita[3]) * xdata / tita[3]**2
+    yfitd[4, :] = tita[2] * np.exp(-xdata/tita[4]) * xdata / tita[4]**2
     return yfitd
 
 
 def fit_fun_hess(tita, xdata):
     yfitd = fit_fun_grad(tita, xdata)
     yfith = np.zeros((len(tita), len(tita), len(xdata)))
-    yfith[1, 3, :] = -yfitd[1,:] * xdata/tita[3]**2
-    yfith[2, 4, :] = -yfitd[2,:] * xdata/tita[4]**2
-    yfith[3, 3, :] = yfitd[3,:] * (xdata-2) / tita[3]
-    yfith[4, 4, :] = yfitd[4,:] * (xdata-2) / tita[4]
+    yfith[1, 3, :] = yfitd[1,:] * xdata/tita[3]**2
+    yfith[2, 4, :] = yfitd[2,:] * xdata/tita[4]**2
+    yfith[3, 3, :] = yfitd[3,:] * (xdata / tita[3] - 2) / tita[3]
+    yfith[4, 4, :] = yfitd[4,:] * (xdata / tita[4] - 2) / tita[4]
     yfith[3, 1, :] = yfith[1, 3, :]
     yfith[4, 2, :] = yfith[2, 4, :]
     return yfith
@@ -64,7 +64,28 @@ def plot_fit(tita, xdata, ydata, yerr):
     plt.show()
 
 
-def e13ia(time, count, poi_err):
+def chi2(tita, xdata, ydata):
+    yfit = fit_fun(tita, xdata)
+    chi2 = sum((ydata - yfit)**2 / ydata)
+    return chi2
+def jac(tita, xdata, ydata):
+    yfit = fit_fun(tita, xdata)
+    yfitd = fit_fun_grad(tita, xdata)
+    a = (yfit - ydata) / ydata
+    j = 2 * np.dot(yfitd, a.T)
+    return j
+def hessian(tita, xdata, ydata):
+    yfit = fit_fun(tita, xdata)
+    yfitd = fit_fun_grad(tita, xdata)
+    yfith = fit_fun_hess(tita, xdata)
+    a = (yfit - ydata) / ydata
+    a = np.tile(np.tile(a, (len(tita), 1)), (len(tita), 1, 1))
+    h = 2 *  np.sum(yfith * a, axis=2)
+    h += 2 *sum([np.outer(c, c) / e for c, e in zip(yfitd.T, ydata)])
+    return h
+
+
+def e13a(time, count, poi_err):
     a4 =209.69
     a5 =34.244
     f2 = lambda x: np.exp(-x / a4)
@@ -92,45 +113,43 @@ def e13ia(time, count, poi_err):
     return tita, ava, a23, a23var
 
 
-def e13ib(time, count, poi_err):
-    def objfun(tita, ydata=count, xdata=time, err=poi_err):
-        yfit = fit_fun(tita, xdata)
-        chi2 = sum((ydata - yfit)**2 / poi_err)
-        return chi2
-    def jac(tita, ydata=count, xdata=time, err=poi_err):
-        yfit = fit_fun(tita, xdata)
-        yfitd = fit_fun_grad(tita, xdata)
-        a = -2 * (ydata - yfit) / poi_err
-        j = np.dot(yfitd, a.T)
-        return j
-    def hessian(tita, ydata=count, xdata=time, err=poi_err):
-        yfit = fit_fun(tita, xdata)
-        yfitd = fit_fun_grad(tita, xdata)
-        yfith = fit_fun_hess(tita, xdata)
-        a = - 2 * (ydata - yfit) / poi_err
-        h = np.sum(yfith * np.tile(a, (len(tita), 1, 1)), axis=2)
-        h += 2 *sum([np.outer(c, c) / e for c, e in zip(yfitd.T, poi_err)])
-        return h
+def e13b(time, count):
     x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
-    print(x0)
-    print(objfun(x0))
-    optita = optimize.minimize(objfun, x0, method='Newton-CG', jac=jac,
-                               hess=hessian,
-                               options={'gtol': 1e-6, 'disp': True})
-    print(optita)
-    print(objfun(optita.x))
-    print(hessian(optita.x))
-    print(np.linalg.det(hessian(optita.x)))
-    print(np.invert(hessian(optita.x)))
-    #plot_fit(optita.x, time, count, poi_err)
-    return
+    objfun = lambda x: chi2(x, time, count)
+    objfunjac = lambda x: jac(x, time, count)
+    objfunhess = lambda x: hessian(x, time, count)
+    #'Newton-CG' 'Nelder-Mead' 'BFGS' 'Powell' 'CG'
+    res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac,
+                               hess=None,
+                               options={'disp': True})
+    return res, objfunhess(res.x)
+
+
+def e13c(time, count):
+    x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
+    objfun = lambda x: chi2(x, time, count)
+    objfunjac = lambda x: jac(x, time, count)
+    res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac)
+    row = res.x[4] + np.linspace(-2.5,2.5,50)
+    col = res.x[3] + np.linspace(-30,40,50)
+    X,Y = np.meshgrid(row,col)
+    f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
+    Z = f(Y, X)
+    plt.contour(X, Y, Z, [objfun(res.x)+1])
+    plt.show()
+    return res
+
+
 
 def main(args):
     time, count, poi_err = load_data()
     if '13a' in args.items:
-        e13ia(time, count, poi_err)
+        e13a(time, count, poi_err)
     if '13b' in args.items:
-        e13ib(time, count, poi_err)
+        res, H = e13b(time, count)
+        print(H)
+    if '13c' in args.items:
+        e13c(time, count)
 
 
 if __name__ == '__main__':
