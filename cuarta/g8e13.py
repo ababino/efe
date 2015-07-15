@@ -56,12 +56,12 @@ def plot_fit(tita, xdata, ydata, yerr):
     f = plt.figure(1)
     ax = f.add_subplot(1,1,1)
     ax.errorbar(xdata, ydata, yerr = yerr, fmt='.', label='Datos')
-    ax.plot(xdata, fit_fun(tita, xdata), label='Ajuste')
+    ax.plot(xdata, fit_fun(tita, xdata), label='Ajuste, 3 parametros')
     ax.set_yscale('log')
     plt.xlabel('Tiempo (s)')
     plt.ylabel('Cuentas')
     plt.legend()
-    plt.show()
+    return f, ax
 
 
 def chi2(tita, xdata, ydata):
@@ -99,8 +99,9 @@ def e13a(time, count, a4, a5):
     return tita, ava
 
 
-def e13b(time, count):
-    x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
+def e13b(time, count, x0=None):
+    if x0 is None:
+        x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
     objfun = lambda x: chi2(x, time, count)
     objfunjac = lambda x: jac(x, time, count)
     objfunhess = lambda x: hessian(x, time, count)
@@ -111,8 +112,9 @@ def e13b(time, count):
     return res, objfunhess(res.x)
 
 
-def e13c(time, count, poi_err):
-    x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
+def e13c(time, count, x0=None):
+    if x0 is None:
+        x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
     objfun = lambda x: chi2(x, time, count)
     objfunjac = lambda x: jac(x, time, count)
     res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac)
@@ -124,11 +126,10 @@ def e13c(time, count, poi_err):
     plt.contour(X, Y, Z, [objfun(res.x)+1], colors='r')
     x0 = res.x[:3]
     @np.vectorize
-    def f(a4, a5):
-        #res = optimize.minimize(lambda x: objfun([x[0], x[1], x[2], a4, a5]), x0, method='BFGS')
-        tita, ava = e13a(time, count, a4, a5)
-        x = np.concatenate([tita, [a4, a5]])
-        return objfun(x)#res.fun
+    def f(x, y):
+        tita, ava = e13a(time, count, x, y)
+        params = np.concatenate([tita, [x, y]])
+        return objfun(params)
     Z = f(Y, X)
     plt.contour(X, Y, Z, [objfun(res.x)+1], colors='b')
     plt.plot([res.x[4]], [res.x[3]], 'o')
@@ -152,9 +153,18 @@ def main(args):
         print('a2/a3 = ' + str(a23))
         print('a23var = ' + str(a23var))
         params = np.concatenate([tita, [a4, a5]])
-        plot_fit(params, time, count, poi_err)
+        print('ch2 = ' + str(chi2(params, time, count)))
+        print('d.f. = ' + str(len(time) - 3))
+        f, ax = plot_fit(params, time, count, poi_err)
     if '13b' in args.items:
-        res, H = e13b(time, count)
+        res, H = e13b(time, count, x0=params)
+        print('tita = ' + str(res.x))
+        print('ch2 = ' + str(chi2(res.x, time, count)))
+        print('d.f. = ' + str(len(time) - 5))
+        ax.plot(time, fit_fun(res.x, time), '--b',label='Ajuste, 5 parametros')
+        plt.legend()
+        plt.savefig('fig1.jpg')
+        plt.show()
         print(H)
     if '13c' in args.items:
         e13c(time, count, poi_err)
