@@ -38,7 +38,7 @@ def my_hist(data, bins, err_type='poisson', **kwargs):
 	if err_type == 'poisson':
 		yerr = np.sqrt(y) / normalization
 	elif err_type == 'binomial':
-		yerr = np.sqrt(y * ( 1 - y / normalization)) / normalization
+		yerr = np.sqrt(y * ( 1 - y / normalization) / normalization)
 	y = y.astype(np.float) / normalization
 	plt.bar(bin_edges[:-1], y, yerr=yerr, width=1.0, ecolor='r', **kwargs)
 
