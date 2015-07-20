@@ -109,6 +109,7 @@ def e13b(time, count, x0=None):
     res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac,
                                hess=None,
                                options={'disp': True})
+    print(0.5*res.hess_inv)
     return res, objfunhess(res.x)
 
 
@@ -123,7 +124,8 @@ def e13c(time, count, x0=None):
     X,Y = np.meshgrid(row,col)
     f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
     Z = f(Y, X)
-    plt.contour(X, Y, Z, [objfun(res.x)+1], colors='r')
+    c1 = sns.color_palette()[0]
+    plt.contour(X, Y, Z, [objfun(res.x)+1], colors=[c1])
     x0 = res.x[:3]
     @np.vectorize
     def f(x, y):
@@ -131,8 +133,14 @@ def e13c(time, count, x0=None):
         params = np.concatenate([tita, [x, y]])
         return objfun(params)
     Z = f(Y, X)
-    plt.contour(X, Y, Z, [objfun(res.x)+1], colors='b')
+    plt.contour(X, Y, -Z, [-objfun(res.x)-1], colors=[sns.color_palette()[1]])
     plt.plot([res.x[4]], [res.x[3]], 'o')
+    plt.xlabel('$a_5$')
+    plt.ylabel('$a_4$')
+    plt.savefig('fig1.jpg')
+    plt.figure(2)
+    plt.contourf(X, Y, Z)
+
     plt.show()
     return res
 
@@ -152,22 +160,24 @@ def main(args):
         print('V(tita) = ' + str(ava))
         print('a2/a3 = ' + str(a23))
         print('a23var = ' + str(a23var))
+        print('a23sigma = ' + str(np.sqrt(a23var)))
         params = np.concatenate([tita, [a4, a5]])
         print('ch2 = ' + str(chi2(params, time, count)))
         print('d.f. = ' + str(len(time) - 3))
         f, ax = plot_fit(params, time, count, poi_err)
     if '13b' in args.items:
-        res, H = e13b(time, count, x0=params)
+        np.set_printoptions(precision=3)
+        np.set_printoptions(suppress=True)
+        res, H = e13b(time, count)
         print('tita = ' + str(res.x))
         print('ch2 = ' + str(chi2(res.x, time, count)))
         print('d.f. = ' + str(len(time) - 5))
-        ax.plot(time, fit_fun(res.x, time), '--b',label='Ajuste, 5 parametros')
-        plt.legend()
-        plt.savefig('fig1.jpg')
-        plt.show()
-        print(H)
+        np.set_printoptions(precision=2)
+        cov = np.linalg.inv(0.5* H)
+        print(cov)
+        print(np.sqrt(cov.diagonal()))
     if '13c' in args.items:
-        e13c(time, count, poi_err)
+        e13c(time, count)
 
 
 if __name__ == '__main__':
