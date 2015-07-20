@@ -12,7 +12,7 @@ Como las mediciones son a tiempo fijo la variable aleatoria es poissonian.
 Si se desea ajustar la curva $y(t) = a_1 + a_2 e^{-t/209.69s} + a_3 e^{-t/34.244s}$ a un conjunto de datos se deben usar las fórmulas de cuadrados mínimos lineal.
 Los parámetros quedan determinados por:
 $$
-\vec{\theta} = (AV^{-1}A)^{-1}AV^{-1}y
+\vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
 $$
 Donde $\theta$ es el vetor de parametros $(a_1, a_2, a_3)$ y $A$ es una matriz que tiene unos en la primera columna $e^{-t/209.69s}$, en la segunda y $e^{-t/34.244s}$ en la tercera.
 $V$ es la matriz de covarianza de la variable independiente.
@@ -20,7 +20,7 @@ En este caso la matriz es diagonal porque los datos no están correlacionados y 
 
 La matriz de covarianza de los parámetros ajustados se puede calcular de la siguiente manera:
 $$
-Cov(\vec{\theta}) = (AV^{-1}A)^{-1}
+Cov(\vec{\theta}) = {(AV^{-1}A)}^{-1}
 $$
 Los resultados de este ajuste fueron:
 $$
@@ -61,13 +61,13 @@ $$
 \section*{Guía 8, Ejercicio 13, ítem c}
 En este caso la función $chi^2$ es:
 $$
-t(a_1, a_2, a_3, a_4, a_5) = \sum_{i=1}^N \frac{\left(y_i-a_1 - a_2 e^{-t/a_4} - a_3 e^{-t/a_5}\right)^2}{y_i}
+t(a_1, a_2, a_3, a_4, a_5) = \sum_{i=1}^N \frac{{\left(y_i-a_1 - a_2 e^{-t/a_4} - a_3 e^{-t/a_5}\right)}^2}{y_i}
 $$
 que debido a que los parámetros $a_4$ y $a_5$ están en las exponenciales el $chi^2$ no es cuadrático en los parámetros.
 
 Si en el argumento de t dejamos fijo $a_1=a_1*$, $a_2=a_2*$ y $a_3=a_3*$ los valore óptimos ya calculados obtenomos una función de $a_4$ y $a_5$.
  Otra opción es para cada par $(a_4, a_5)$ calcular la terna óptima $(a_1, a_2, a_3)$ y con ellos calcular el $chi^2$.
- En el gráfico de la figura \ref{fig:fig1} se muestra la curva de nivel $t=t_{min} + 1$ para las dos funciones.
+ En el gráfico de la figura\ref{fig:fig1} se muestra la curva de nivel $t=t_{\min} + 1$ para las dos funciones.
 
 \begin{figure}
 \centering
@@ -80,7 +80,7 @@ Si en el argumento de t dejamos fijo $a_1=a_1*$, $a_2=a_2*$ y $a_3=a_3*$ los val
 \section*{Guía 9}
 \subsection*{Ejercicio 13}
 \subsubsection*{Ítem a}
-Por simple inspección ocular se pueden ordenar los histogramas como se muestra en la figura \ref{fig:hists}
+Por simple inspección ocular se pueden ordenar los histogramas como se muestra en la figura\ref{fig:hists}
 \begin{figure}
 \centering
 \begin{subfigure}[b]{0.3\textwidth}
@@ -97,10 +97,11 @@ Por simple inspección ocular se pueden ordenar los histogramas como se muestra 
 \end{figure}
 
 \subsubsection*{Ítem b}
-En la figura \ref{fig:fig2} se muestra un histograma de los primeros $3000$ datos.
-Sobre estos se graficó las cuentas esperadas asumiendo una distribución N(0, 2.5).
+En la figura\ref{fig:fig2} se muestra un histograma de los primeros $3000$ datos.
+Sobre estos se graficó las cuentas esperadas asumiendo una distribución $N(0, 2.5)$.
 Si aplicamos un test $chi^2$ sobre estos datos obtenemos que un valor $chi^2 =chi2=67$.
-El número de grados de libertad de la $chi^2$ es $56$ (el número de bines) por lo tanto el p valor del test es $pval=0.15$
+El número de grados de libertad de la $chi^2$ es $56$ (el número de bines) por lo tanto el p valor del test es $pval=0.15$.
+Con este p valor no podemos rechazar la hipótestis nula.
 
 \begin{figure}
 \centering
@@ -108,3 +109,18 @@ El número de grados de libertad de la $chi^2$ es $56$ (el número de bines) por
 \caption[]{}
 \label{fig:fig2}
 \end{figure}
+
+Si sobre los mismos datos aplicamos los tests de Kolmolgorov y de Cramer Von-Mises obtenemos valores $t_k=0.032$ y $t_c=0.0015$ respectivamente.
+Comparando con las tablas de valores críticos vemos que en los dos casos podemos rechazar la hipótesis nula con un $99\%$ de nivel de confianza.
+
+\subsubsection*{Ítem c}
+En los gráficos de la figura\ref{fig:fig3} se muestra la variación de los estádisticos y sus vaores críticos para distinto tamaños de muestra.
+Se puede observar que a medida que el tamaño de la muestra crece todos los test rechazan la hipótesis nula con más de $99\%$ de nivel de confianza.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{fig3.jpg}
+\caption[]{}
+\label{fig:fig3}
+\end{figure}
+\end{document}
