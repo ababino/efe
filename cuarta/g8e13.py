@@ -113,19 +113,21 @@ def e13b(time, count, x0=None):
     return res, objfunhess(res.x)
 
 
-def e13c(time, count, x0=None):
+def e13c(time, count, x0=None, cv=1, row_int=(-3,3), col_int=(-35, 45),
+         plot_soloid=True):
     if x0 is None:
         x0 = [10.6888, 127.9398, 960.8654, 200., 34.]
     objfun = lambda x: chi2(x, time, count)
     objfunjac = lambda x: jac(x, time, count)
     res = optimize.minimize(objfun, x0, method='BFGS', jac=objfunjac)
-    row = res.x[4] + np.linspace(-3,3,50)
-    col = res.x[3] + np.linspace(-35,45,50)
+    row = res.x[4] + np.linspace(row_int[0],row_int[1],50)
+    col = res.x[3] + np.linspace(col_int[0],col_int[1],50)
     X,Y = np.meshgrid(row,col)
-    f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
-    Z = f(Y, X)
-    c1 = sns.color_palette()[0]
-    plt.contour(X, Y, Z, [objfun(res.x)+1], colors=[c1])
+    if plot_soloid:
+        f = np.vectorize(lambda x, y: objfun([res.x[0], res.x[1], res.x[2], x, y]))
+        Z = f(Y, X)
+        c1 = sns.color_palette()[0]
+        plt.contour(X, Y, Z, [objfun(res.x)+cv], colors=[c1])
     x0 = res.x[:3]
     @np.vectorize
     def f(x, y):
@@ -133,15 +135,15 @@ def e13c(time, count, x0=None):
         params = np.concatenate([tita, [x, y]])
         return objfun(params)
     Z = f(Y, X)
-    plt.contour(X, Y, -Z, [-objfun(res.x)-1], colors=[sns.color_palette()[1]])
+    ct = plt.contour(X, Y, -Z, [-objfun(res.x)-cv], colors=[sns.color_palette()[1]])
     plt.plot([res.x[4]], [res.x[3]], 'o')
     plt.xlabel('$a_5$')
     plt.ylabel('$a_4$')
-    plt.savefig('fig1.jpg')
-    plt.figure(2)
-    plt.contourf(X, Y, Z)
-
-    plt.show()
+    p = ct.collections[0].get_paths()[0]
+    v = p.vertices
+    x = v[:,0]
+    y = v[:,1]
+    print(min(x), max(x), min(y), max(y))
     return res
 
 
@@ -178,7 +180,12 @@ def main(args):
         print(np.sqrt(cov.diagonal()))
     if '13c' in args.items:
         e13c(time, count)
-
+        plt.savefig('fig1.jpg')
+        plt.show()
+    if '13d' in args.items:
+        e13c(time, count, cv=5.86, row_int=(-7,7), col_int=(-70, 140), plot_soloid=False)
+        plt.savefig('fig11.jpg')
+        plt.show()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Resuleve el ejercicio 13 de la guia 8.')
