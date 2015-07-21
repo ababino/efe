@@ -14,7 +14,7 @@ Como las mediciones son a tiempo fijo la variable aleatoria es poissoniana.
 Si se desea ajustar la curva $y(t) = a_1 + a_2 e^{-t/209.69s} + a_3 e^{-t/34.244s}$ a un conjunto de datos se deben usar las fórmulas de cuadrados mínimos lineal.
 Los parámetros quedan determinados por:
 $$
-% \vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
+\vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
 $$
 Donde $\theta$ es el vector de parámetros $(a_1, a_2, a_3)$ y $A$ es una matriz que tiene unos en la primera columna, $e^{-t_i/209.69s}$, en la segunda y $e^{-t_i/34.244s}$ en la tercera.
 $V$ es la matriz de covarianza de la variable independiente.
@@ -89,33 +89,23 @@ La curva azul corresponde al corte en el plano  $(\theta_1, \theta_2, \theta_3)=
 Como no los es, existen puntos del espacio $(\theta_1, \theta_2)$ más alejados aún del centro que tienen valores de $\chi^2$ menores a nuestro umbral $\delta$.
 Estos puntos tienen otros valores de $(\theta_1, \theta_2, \theta_3)$ pero pertenecen a la hipersuperficie de nivel (o están dentro de ella).
 
-Como lo que debemos evaluar es la integral $5-dimensional$ de $\chi^2$ hasta un umbral $\delta$ la curva punteada es la que nos interesa a la hora de evaluar la incerteza en $(\theta_1, \theta_2)$
-
 \subsubsection*{Ítem d}
-Para calcular los intervalos de $68\%$ de nivel de confianza para cada variable por separado hay que calcular el equivalente de la curva punteada de la figura \ref{fig:fig1} pero para el valor $\delta=5.86$ pues $\int_0^{5.86}\chi^2_5(x)dx=0.68$.
-
-En el gráfico de la figura \ref{fig:fig11} se muestra esta curva de nivel.
-Los intervalos de confianza se pueden extraer de los valores máximos y mínimos en los correspondientes ejes.
-Estos son:
+Para calcular los intervalos de $68\%$ de nivel de confianza para cada variable por separado habría que integrar la distribución conjunta en todas las otras variables y calcular la región de área $0.68$
+Como no conocemos la distribución exacta lo que podemos hacer es aproximarla por una $\chi^2_1$ que cerca de los parámetros óptimos debe ser una buena aproximación.
+En este caso el intervalo del $68\%$ está comprendido a más menos un $\sigma$ del valor óptimo, es decir:
 
 $$
-\theta_4 \in (149.34, 346.56)\ 68\%\ c.l.
+\theta_4 \in (175, 245)\ 68\%\ c.l.
 $$
 $$
-\theta_5 \in (27.70, 41.04) \ 68\%\ c.l.
+\theta_5 \in (31.3, 36.7) \ 68\%\ c.l.
 $$
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{fig11.jpg}
-\caption[]{}
-\label{fig:fig11}
-\end{figure}
-
 
 \subsubsection*{Ítem e}
-Este caso es equivalente al anterior pero ahora deberíamos integrar hasta $11.1$ pues $\int_0^{11.1}\chi^2_5(x)dx=0.95$
+En el caso de que se quiera calcular el intervalo de $95\%$ habría que apartarse $2\sigma$ del valor óptimo, pero esta aproximación sería menos exacta aún.
 
+Si lo que queremos es el contorno conjunto ahora podemos aproximar la probabilidad conjunta como una binormal y por lo tanto la variable  $Q = (\theta_4-\theta_4^*, \theta_5-\theta_5^*) V(\theta_4, \theta_5)^{-1} (\theta_4-\theta_4^*, \theta_5-\theta_5^*)^t$ debe seguir una distribución $\chi^2_2(Q)$.
+De este modo encontramos una elipse definida por $Q(\theta_4, \theta_5)=5.99$ que es el valor para el cual $\int_0^{5.99}\chi^2_2(x)dx=0.95$.
 
 \section*{Guía 9}
 \subsection*{Ejercicio 13}
