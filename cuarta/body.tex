@@ -16,7 +16,7 @@ Los parámetros quedan determinados por:
 $$
 % \vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
 $$
-Donde $\theta$ es el vector de parámetros $(a_1, a_2, a_3)$ y $A$ es una matriz que tiene unos en la primera columna $e^{-t/209.69s}$, en la segunda y $e^{-t/34.244s}$ en la tercera.
+Donde $\theta$ es el vector de parámetros $(a_1, a_2, a_3)$ y $A$ es una matriz que tiene unos en la primera columna, $e^{-t_i/209.69s}$, en la segunda y $e^{-t_i/34.244s}$ en la tercera.
 $V$ es la matriz de covarianza de la variable independiente.
 En este caso la matriz es diagonal porque los datos no están correlacionados y la varianza es poisson.
 
@@ -40,7 +40,7 @@ $$
 Usando estos datos podemos calcular el valor esperado del cociente $a_2/a_3$ y usando la fórmula de propagación de errores su error:
 
 $$
-\frac{a_2}{a_3} = 0.134 \pm 0.050
+\frac{a_2}{a_3} = 0.1339 \pm 0.0095
 $$
 
 \subsubsection*{Ítem b}
@@ -81,15 +81,15 @@ En el gráfico de la figura\ref{fig:fig1} se muestra la curva de nivel $t=t_{\mi
 
 El conjunto de los $\vec \theta$ para los cuales la función $\chi^2=\delta$ es un conjunto de nivel (el equivalente multidimensional de las curvas de nivel).
 Este conjunto es una hipersuperficie de $4$ dimensiones que lógicamente no se puede visualizar.
-Si esta hipersuperficie correspondiente a una función cuadrática en los parámetros (con matriz de covarianza definida positiva) al alejarnos del hipervéritce (el valor óptimo) de esta hiperparábola el valor de la función aumentaría siempre.
+Si esta hipersuperficie correspondiese a una función cuadrática en los parámetros (con matriz de covarianza definida positiva) al alejarnos del hipervéritce (el valor óptimo) de esta hiperparábola el valor de la función aumentaría siempre.
 Sin embargo, este no es el caso, por lo tanto cuando nos alejamos del valor óptimo no siempre el valor de $\chi^2$ aumenta.
 
 En conclusión las dos curvas son diferentes cortes del la hipersuperficie de nivel.
-La curva azul corresponde al corte en el plano  $(\theta_1, \theta_2, \theta_3)=(\theta_1^*, \theta_2^*, \theta_3^*)$ y a los límites de $(\theta_1 \theta_2)$0 corresponden a los límites que tendrían si $\chi^2$ fuese cuadrático en los parámetros.
-Como no los es, existen puntos del espacio $(\theta_1 \theta_2)$ más alejados aún del centro que tienen valores de $\chi^2$ menores a nuestro umbral $\delta$.
-Estos puntos tienen otros valores de $(\theta_1, \theta_2, \theta_3)$ pero pertenecen a la hipersuperficie de nivel.
+La curva azul corresponde al corte en el plano  $(\theta_1, \theta_2, \theta_3)=(\theta_1^*, \theta_2^*, \theta_3^*)$ y a los límites de $(\theta_1, \theta_2)$ corresponden a los límites que tendrían si $\chi^2$ fuese cuadrático en los parámetros.
+Como no los es, existen puntos del espacio $(\theta_1, \theta_2)$ más alejados aún del centro que tienen valores de $\chi^2$ menores a nuestro umbral $\delta$.
+Estos puntos tienen otros valores de $(\theta_1, \theta_2, \theta_3)$ pero pertenecen a la hipersuperficie de nivel (o están dentro de ella).
 
-Como lo que debemos evaluar es la integral $5-dimensional$ de $\chi^2$ hasta un umbral $\delta$ la curva punteada es la que nos interesa a la hora de evaluar la incerteza en $(\theta_1 \theta_2)$
+Como lo que debemos evaluar es la integral $5-dimensional$ de $\chi^2$ hasta un umbral $\delta$ la curva punteada es la que nos interesa a la hora de evaluar la incerteza en $(\theta_1, \theta_2)$
 
 \subsubsection*{Ítem d}
 Para calcular los intervalos de $68\%$ de nivel de confianza para cada variable por separado hay que calcular el equivalente de la curva punteada de la figura \ref{fig:fig1} pero para el valor $\delta=5.86$ pues $\int_0^{5.86}\chi^2_5(x)dx=0.68$.
@@ -159,8 +159,8 @@ Se puede observar que a medida que el tamaño de la muestra crece todos los test
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{fig3.jpg}
-\caption[]{}
+\includegraphics[width=\textwidth]{fig3.jpg}
+\caption[]{En azul se muestra el valor medidio de los estadísticos para distintos números de datos. En rojo se muestra el valor crítico de esos estádisticos para una significancia del $1\%$}
 \label{fig:fig3}
 \end{figure}
 
