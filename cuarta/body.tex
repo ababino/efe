@@ -14,7 +14,7 @@ Como las mediciones son a tiempo fijo la variable aleatoria es poissoniana.
 Si se desea ajustar la curva $y(t) = a_1 + a_2 e^{-t/209.69s} + a_3 e^{-t/34.244s}$ a un conjunto de datos se deben usar las fórmulas de cuadrados mínimos lineal.
 Los parámetros quedan determinados por:
 $$
-\vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
+% \vec{\theta} = {(AV^{-1}A)}^{-1}AV^{-1}y
 $$
 Donde $\theta$ es el vector de parámetros $(a_1, a_2, a_3)$ y $A$ es una matriz que tiene unos en la primera columna $e^{-t/209.69s}$, en la segunda y $e^{-t/34.244s}$ en la tercera.
 $V$ es la matriz de covarianza de la variable independiente.
@@ -67,7 +67,7 @@ t(a_1, a_2, a_3, a_4, a_5) = \sum_{i=1}^N \frac{{\left(y_i-a_1 - a_2 e^{-t/a_4} 
 $$
 que debido a que los parámetros $a_4$ y $a_5$ están en las exponenciales el $\chi^2$ no es cuadrático en los parámetros.
 
-Si en el argumento de $t$ dejamos fijo $a_1=a_1*$, $a_2=a_2*$ y $a_3=a_3*$, los valores óptimos ya calculados, obtenemos una función de $a_4$ y $a_5$.
+Si en el argumento de $t$ dejamos fijo $a_1=a_1^*$, $a_2=a_2^*$ y $a_3=a_3^*$, los valores óptimos ya calculados, obtenemos una función de $a_4$ y $a_5$.
 Otra opción es para cada par $(a_4, a_5)$ calcular la terna óptima $(a_1, a_2, a_3)$ y con ellos calcular el $\chi^2$.
 En el gráfico de la figura\ref{fig:fig1} se muestra la curva de nivel $t=t_{\min} + 1$ para las dos funciones.
 
@@ -85,7 +85,7 @@ Si esta hipersuperficie correspondiente a una función cuadrática en los parám
 Sin embargo, este no es el caso, por lo tanto cuando nos alejamos del valor óptimo no siempre el valor de $\chi^2$ aumenta.
 
 En conclusión las dos curvas son diferentes cortes del la hipersuperficie de nivel.
-La curva azul corresponde al corte en el plano  $(\theta_1, \theta_2, \theta_3)=(\theta_1*, \theta_2*, \theta_3*)$ y a los límites de $(\theta_1 \theta_2)$0 corresponden a los límites que tendrían si $\chi^2$ fuese cuadrático en los parámetros.
+La curva azul corresponde al corte en el plano  $(\theta_1, \theta_2, \theta_3)=(\theta_1^*, \theta_2^*, \theta_3^*)$ y a los límites de $(\theta_1 \theta_2)$0 corresponden a los límites que tendrían si $\chi^2$ fuese cuadrático en los parámetros.
 Como no los es, existen puntos del espacio $(\theta_1 \theta_2)$ más alejados aún del centro que tienen valores de $\chi^2$ menores a nuestro umbral $\delta$.
 Estos puntos tienen otros valores de $(\theta_1, \theta_2, \theta_3)$ pero pertenecen a la hipersuperficie de nivel.
 
