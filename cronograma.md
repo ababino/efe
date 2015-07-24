@@ -1,4 +1,4 @@
-#Lista de temas por fecha
+#Cronograma
 * 17/03 No mucho
 * 20/03 Definición de probabilidad
     * Algebra
@@ -97,6 +97,86 @@
             * Cauchy 
                 * No tiene sigma
 * 08/05
+    - Función generatriz
+        + Binomial, Poisson
+        + Suma
+        + sum de variable aleatoria hasta otra variable aleatoria 
+            * suma de bernullis hasta poisson
+            * suma de poisson hasta poisson
+    - logaritmo de la funión característica
+        + Momentos cumulantes: kurtosis y skewness
+        + Gaussiana
+* 12/05
+    - Teorema central del límite
+        + Condición suficiente de Liapunov
+    - Estadística
+        + Estimadores
+            * Ley débil de los grandes números
+            * Consistencia
+            * Valor medio
+            * Varianza
+            * Sesgo
+* 19/05 
+    - Verosimilitud
+        + Principio de máxima verosimilitud
+            * Ajuste lineal
+* 22/05
+    - Teorema de Cramer-Rao
+    - Eficiencia
+    - Ejemplo: exponencial
+    - Condición de máxima eficiencia
+    - Ejemplo: Poisson
+    - Ejemplo: Gaussiana
+    - Versión ultidimensional de Cramer-Rao
+* 26/05
+    - Suficiencia
+    - Ejemplo: Poisson
+    - Teorema de Blackwell-Rao
+    - Familia exponencial
+    - Teorema de Darmois
+    - Ejemplo Gaussiana
+    - Estimadores de máxima verosimilitud. Propiedades
+* 29/05 
+    - M. V.: Promedio pesado
+    - Cuadrados mínimos en dos variables
+    - Estimadores de M.V.: Invarianza ante transformaciones
+    - Ejemplo de partículas     
+* 02/06   
+    - Teorema: Los estimadores de M.V. son normales en el límite.
+    - Intervalo de confianza
+* 05/06
+* 12/06
+    - intervalos de confianza
+    - Cinturon de confianza: Método de Neyman
+    - Ejemplo: normal
+    - Ejemplo: Poisson
+    - Propiedad: Poisson-Chi²
+* 16/06 
+    - Ejemplo: cota superior
+    - Intervalos Bayesianos
+    - Prior conjugado
+        + beta
+* 19/06
+    - Test de hipotesis
+    - Test chi²
+    - significancia
+    - p valor
+* 23/06
+    - Test de Komolgorov y de Cramer-Von Mises
+* 26/06
+    - Test de runs
+    - test de runs + chi²
+    - Test de Wilcoxon
+    - Test paramétricos
+    - Función de potencia (power)
+* 30/06 
+    - Likelihood Ration Test
+    - Curva ROC
+    - Test Uniformemente más potente
+    - Ejemplo: test de student para dos distribuciones
+
+    - distribución del p valor es uniforme         
+
 
 
 
