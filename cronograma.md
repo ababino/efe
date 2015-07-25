@@ -145,6 +145,9 @@
     - Teorema: Los estimadores de M.V. son normales en el límite.
     - Intervalo de confianza
 * 05/06
+    - Estimación de parámetros maximizando la verosimilitud computacinalmente
+    - Cuadrados mínimos
+    - Teorema de Gauss-Markov
 * 12/06
     - intervalos de confianza
     - Cinturon de confianza: Método de Neyman
