@@ -1,8 +1,8 @@
 #Cronograma
-* 17/03 No mucho
+* 17/03 Problemas introductorios
 * 20/03 Definición de probabilidad
-    * Algebra
-    * Sigma-Algebra
+    * Álgebra
+    * Sigma-Álgebra
     * Probabilidad
     * Propiedades de la Probabilidad
 * 24/03
@@ -12,7 +12,7 @@
         * No ordenado sin reposición
     * Probabilidad condicional
         * Independencia
-            * Resiprocidad 
+            * Reciprocidad 
             * Independiente <==> intersección = producto
     * Teorema de Bayes 
 * 27/03 
@@ -31,14 +31,14 @@
     * Intervalo aleatorio
     * Distribuciones discretas infinitas numerables
         * Poisson
-        * Geomtétrica
+        * Geométrica
         * Binomial negativa
 * 10/04
     * Probabilidad continua
         * Teorema: T={x / x in R and P(x)>0} ==> T es numerable
 * 14/04
     * Función distribución
-        * Porpiedades
+        * Propiedades
         * Teorema: F(b) - F(a) es una probabilidad
         * Ejemplos
             * Continua
@@ -48,7 +48,7 @@
     * Esperanza y Varianza en el caso continuo
         * Uniforme
         * Exponencial
-    * Teorema de Chevicheff
+    * Teorema de Chebysheff
     * Cambio de variables
         * Cauchy-Lorentz: faro
         * Uniforme: y=x²
@@ -64,7 +64,7 @@
         * Probabilidad condicional
         * Valor medio y Matriz de covarianza.
 * 24/04 
-    * Densidad de porbablidad condicional. Propiedades (2)
+    * Densidad de probabilidad condicional. Propiedades (2)
     * Teorema de Bayes
     * Ejemplos
         * Suma de uniformes
@@ -77,14 +77,14 @@
     * Propiedades de la esperanza y la varianza
     * Correlación
     * Distribución multinormal
-    * Elipse de confienza
+    * Elipse de confianza
     * sigma(promedio(x)) = sigma(x)/sqrt(n)
     * Fórmula de propagación de errores
 * 05/05 
-    * Cuadrados Mínimos
-    * Función carasterística
+    * Error de un ajuste lineal por Cuadrados Mínimos
+    * Función característica
         * Definición
-        * Definicion en más de una variable
+        * Definición en más de una variable
         * Caso de independencia
         * Suma de variables independientes
         * Ejemplos
@@ -100,7 +100,7 @@
     - Función generatriz
         + Binomial, Poisson
         + Suma
-        + sum de variable aleatoria hasta otra variable aleatoria 
+        + suma de variable aleatoria hasta otra variable aleatoria 
             * suma de bernullis hasta poisson
             * suma de poisson hasta poisson
     - logaritmo de la funión característica
@@ -127,7 +127,7 @@
     - Condición de máxima eficiencia
     - Ejemplo: Poisson
     - Ejemplo: Gaussiana
-    - Versión ultidimensional de Cramer-Rao
+    - Versión multidimensional de Cramer-Rao
 * 26/05
     - Suficiencia
     - Ejemplo: Poisson
@@ -145,12 +145,12 @@
     - Teorema: Los estimadores de M.V. son normales en el límite.
     - Intervalo de confianza
 * 05/06
-    - Estimación de parámetros maximizando la verosimilitud computacinalmente
+    - Estimación de parámetros maximizando la verosimilitud computacionalmente
     - Cuadrados mínimos
     - Teorema de Gauss-Markov
 * 12/06
     - intervalos de confianza
-    - Cinturon de confianza: Método de Neyman
+    - Cinturón de confianza: Método de Neyman
     - Ejemplo: normal
     - Ejemplo: Poisson
     - Propiedad: Poisson-Chi²
@@ -177,9 +177,4 @@
     - Curva ROC
     - Test Uniformemente más potente
     - Ejemplo: test de student para dos distribuciones
-
-    - distribución del p valor es uniforme         
-
-
-
-
+    - distribución del p valor es uniforme
