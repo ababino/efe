@@ -1,56 +1,56 @@
 #Guía de temas para el final
-[x] 20/03 Definición de probabilidad
-[x] Probabilidad condicional
-[x] Teorema de Bayes 
-[x] Teorema: T={x / x in R and P(x)>0} ==> T es numerable 
-[x] Teorema: F(b) - F(a) es una probabilidad
-[x] Exponencial. Propiedad: no tiene memoria
-[x] Teorema de Chevicheff
-[x] Cambio de variables
-[x] Cambio de variables
-[x] Suma de uniformes
-[x] Densidad de porbablidad condicional. Propiedades (2)
-[x] Teorema de Bayes
-[x] Ejemplos
-[x] Suma de uniformes
-[x] Chi²_n
-[x] Gamma
-[x] Independencia ==> Cov = 0
-[x] Propiedades de la esperanza y la varianza
-[x] Elipse de confienza
-[x] sigma(promedio(x)) = sigma(x)/sqrt(n)
-[x] Fórmula de propagación de errores
-[x] Caso de independencia
-[x] Suma de variables independientes
-[x] suma de variable aleatoria hasta otra variable aleatoria 
-[x] logaritmo de la función característica
-[x] Teorema central del límite
-[x] Condición suficiente de Liapunov
-[x] Ley débil de los grandes números
-[x] Estimador de la Varianza
-[x] Teorema de Cramer-Rao
-[x] Suficiencia
-[x] Ejemplo: Poisson
-[x] Teorema de Blackwell-Rao
-[x] Familia exponencial
-[x] Teorema de Darmois. Ejemplo: Gaussiana
-[x] Máxima Verosimilitud: Promedio pesado
-[x] Cuadrados mínimos en dos variables
-[x] Estimadores de máxima verosimilitud: Invarianza ante transformaciones
-[x] Teorema: Los estimadores de máxima verosimilitud: son normales en el límite.
-[x] Cuadrados mínimos: el caso lineal en los parámetros
-[x] Teorema de Gauss-Markov
-[x] Intervalos de confianza frecuentistas
-[x] Cinturón de confianza: Método de Neyman. Ejemplos: Normal, Poisson
-[x] Intervalos Bayesianos. Prior conjugado
-[x] Test chi²
-[x] Test de Komolgorov y de Cramer-Von Mises
-[x] Test de runs
-[x] test de runs + chi²
-[x] Test de Wilcoxon
-[x] Test paramétricos
-[x] Función de potencia (power)
-[x] Likelihood Ration Test
-[x] Curva ROC
-[x] Ejemplo: test de student para dos distribuciones
-[x] distribución del p valor es uniforme
+- [x] 20/03 Definición de probabilidad
+- [x] Probabilidad condicional
+- [x] Teorema de Bayes 
+- [x] Teorema: T={x / x in R and P(x)>0} ==> T es numerable 
+- [x] Teorema: F(b) - F(a) es una probabilidad
+- [x] Exponencial. Propiedad: no tiene memoria
+- [x] Teorema de Chevicheff
+- [x] Cambio de variables
+- [x] Cambio de variables
+- [x] Suma de uniformes
+- [x] Densidad de porbablidad condicional. Propiedades (2)
+- [x] Teorema de Bayes
+- [x] Ejemplos
+- [x] Suma de uniformes
+- [x] Chi²_n
+- [x] Gamma
+- [x] Independencia ==> Cov = 0
+- [x] Propiedades de la esperanza y la varianza
+- [x] Elipse de confienza
+- [x] sigma(promedio(x)) = sigma(x)/sqrt(n)
+- [x] Fórmula de propagación de errores
+- [x] Caso de independencia
+- [x] Suma de variables independientes
+- [x] suma de variable aleatoria hasta otra variable aleatoria 
+- [x] logaritmo de la función característica
+- [x] Teorema central del límite
+- [x] Condición suficiente de Liapunov
+- [x] Ley débil de los grandes números
+- [x] Estimador de la Varianza
+- [x] Teorema de Cramer-Rao
+- [x] Suficiencia
+- [x] Ejemplo: Poisson
+- [x] Teorema de Blackwell-Rao
+- [x] Familia exponencial
+- [x] Teorema de Darmois. Ejemplo: Gaussiana
+- [x] Máxima Verosimilitud: Promedio pesado
+- [x] Cuadrados mínimos en dos variables
+- [x] Estimadores de máxima verosimilitud: Invarianza ante transformaciones
+- [x] Teorema: Los estimadores de máxima verosimilitud: son normales en el límite.
+- [x] Cuadrados mínimos: el caso lineal en los parámetros
+- [x] Teorema de Gauss-Markov
+- [x] Intervalos de confianza frecuentistas
+- [x] Cinturón de confianza: Método de Neyman. Ejemplos: Normal, Poisson
+- [x] Intervalos Bayesianos. Prior conjugado
+- [x] Test chi²
+- [x] Test de Komolgorov y de Cramer-Von Mises
+- [x] Test de runs
+- [x] test de runs + chi²
+- [x] Test de Wilcoxon
+- [x] Test paramétricos
+- [x] Función de potencia (power)
+- [x] Likelihood Ration Test
+- [x] Curva ROC
+- [x] Ejemplo: test de student para dos distribuciones
+- [x] distribución del p valor es uniforme- 
