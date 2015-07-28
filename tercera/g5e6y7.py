@@ -1,10 +1,24 @@
 #!/usr/bin/env python
-"""Resuleve el ejercicio 15 de la guia 2."""
+# -*- coding: utf-8 -*-
+"""Resuleve el ejercicio 6d, 6e y 7 de la guia 5."""
+from __future__ import unicode_literals
 import random
 from matplotlib import pyplot as plt
 import numpy as np
 from scipy.special import binom
 import argparse
+import seaborn as sns
+
+
+def show_or_close(fun, argshow):
+	def inner(*args, **kwargs):
+		out = fun(*args, **kwargs)
+		if argshow:
+			plt.show()
+		else:
+			plt.close('all')
+		return out
+	return inner
 
 
 def lin_fit(x, y, s):
@@ -37,7 +51,7 @@ def get_bounds(x, a1, a2, Cov, ignore_cov=False):
 
 def ej6d(data_x, data_y, s):
 	a1, a2, Cov = lin_fit(data_x, data_y, s)
-	print a1, a2, Cov
+	print(a1, a2, Cov)
 	x = np.arange(6)
 	y_fit = a1 + a2*x
 	plt.errorbar(data_x, data_y, s, fmt='.', label='Datos')
@@ -49,7 +63,6 @@ def ej6d(data_x, data_y, s):
 	plt.xlabel('x')
 	plt.ylabel('y')
 	plt.savefig('ej6d.jpg')
-	plt.show()
 
 
 def ej6e(data_x, data_y, s):
@@ -68,7 +81,6 @@ def ej6e(data_x, data_y, s):
 	plt.xlim([-4, 4])
 	plt.ylim([-4, 6])
 	plt.savefig('ej6e.jpg')
-	plt.show()
 
 
 def ej7(data_x, data_y, s):
@@ -87,15 +99,14 @@ def ej7(data_x, data_y, s):
 	mu = (lower + upper) /2
 	sigma = mu - lower
 	C = 1.0 /(2 * np.pi * sigma**2)**0.5
-	print C
+	print(C)
 	xgauss = np.arange(-1, 5, 0.01)
 	ygauss = C * np.exp(-((xgauss - mu)**2 ) / (2 * sigma**2))  
-	plt.plot(xgauss, ygauss, 'r-', label=r'$Distribuci\'on\ Gaussiana\ Te\'orica$')
+	plt.plot(xgauss, ygauss, 'r-', label='Distribución Gaussiana Teórica')
 	plt.legend()
 	plt.xlabel('$y_a$')
 	plt.ylabel('Frecuencia')
 	plt.savefig('ej7.jpg')
-	plt.show()
 
 
 def main(args):
@@ -104,19 +115,23 @@ def main(args):
 	y = [2.78, 3.29, 3.29, 3.33, 3.23, 3.69, 3.46, 3.87, 3.62, 3.40, 3.99]
 	s = 0.3
 	if '6d' in args.items:
-		print '-----6d)-------'
-		ej6d(x, y, s)
+		print('-----6d)-------')
+		f = show_or_close(ej6d, args.show)
+		f(x, y, s)
 	if '6e' in args.items:
-		print '-----6e)-------'
-		ej6e(x, y, s)
+		print('-----6e)-------')
+		f = show_or_close(ej6e, args.show)
+		f(x, y, s)
 	if '7' in args.items:
-		print '-----7)-------'
-		ej7(x, y, s)
+		print('-----7)-------')
+		f = show_or_close(ej7, args.show)
+		f(x, y, s)
 
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Resuleve el ejercicio 6d, 6e y 7 de la guia 5.')
-	parser.add_argument('items', metavar='I', type=str, nargs='+',
-	                    help='Los items a resolver.')
+	parser.add_argument('-items', metavar='I', type=str, nargs='+',
+	                    help='Los ítems a resolver.', default='6d6e7')
+	parser.add_argument('-show', action='store_true')
 	args = parser.parse_args()
 	main(args)

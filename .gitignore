@@ -1,7 +1,5 @@
 *.log
 *.aux
 *.pyc
-*.pdf
 *~
 *.out
-*.jpg

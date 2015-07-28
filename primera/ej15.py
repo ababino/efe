@@ -1,17 +1,20 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """Resuleve el ejercicio 15 de la guia 2."""
+from __future__ import unicode_literals
 import random
 from matplotlib import pyplot as plt
 import numpy as np
 from scipy.special import binom
 import inspect
 import argparse
+import seaborn as sns
 
 
 def binomial_sample(n, p):
 	"""
 	Takes a sample of size n from a binomial distribution with a success
-	probability equal p. Returns the number of sucesses.
+	probability equal p. Returns the number of successes.
 	"""
 	s = 0
 	for i in xrange(n):
@@ -74,23 +77,26 @@ class Fuente_Detector(object):
 		return binomial_sample(n_samp, self.p)
 
 
-def exp1():
+def exp1(argshow):
 	n = 15
 	detector = Detector()
 	hist_data = [detector.detectar(n) for x in xrange(1000)]
 	theory_x = range(0, n + 1)
 	theory_y = [binomial(x, n, detector.eficiencia) for x in theory_x]
-	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label=r'$Simulaci\'on$',
+	my_hist(hist_data, bins=np.arange(-0.5, 16.5), label='Simulación',
 			err_type='binomial')
-	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
-	plt.xlabel(r'$N\'umero\ Fotones\ detectados$')
-	plt.ylabel('$Frecuencia$')
+	plt.plot(theory_x, theory_y, 'k--*', label='Distribución Teórica')
+	plt.xlabel('Número Fotones detectados')
+	plt.ylabel('Frecuencia')
 	plt.legend(loc='upper left')
 	plt.savefig('figb.jpg')
-	plt.show()
+	if argshow:
+		plt.show()
+	else:
+		plt.close()
 
 
-def exp2():
+def exp2(argshow):
 	fuente = Fuente()
 	delta_t = 1.
 	N = int(fuente.n * delta_t)
@@ -98,24 +104,30 @@ def exp2():
 	theory_y = [poisson(k, fuente.intensidad * fuente.dt) for k in theory_x]
 	print(theory_y)
 	plt.plot(theory_x, theory_y, 'k--*')
-	plt.xlabel(r'$N\'umero\ de\ Eventos$')
-	plt.ylabel(r'$Frecuencia$')
+	plt.xlabel('Número de Eventos')
+	plt.ylabel('Frecuencia')
 	plt.savefig('poisson.jpg')
-	plt.show()
+	if argshow:
+		plt.show()
+	else:
+		plt.close()
 	hist_data = [fuente.emitir(delta_t) for x in xrange(1000)]
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente.intensidad * delta_t) for k in theory_x]
-	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
-	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
-	plt.xlabel(r'$N\'umero\ de\ Fotones\ Emitidos$')
-	plt.ylabel(r'$Frecuencia$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label='Simulación')
+	plt.plot(theory_x, theory_y, 'k--*', label='Distribución Teórica')
+	plt.xlabel('Número de Fotones Emitidos')
+	plt.ylabel('Frecuencia')
 	plt.legend()
 	plt.xlim([0, 35])
 	plt.savefig('figc.jpg')
-	plt.show()
+	if argshow:
+		plt.show()
+	else:
+		plt.close()
 
 
-def exp3():
+def exp3(argshow):
 	fuente = Fuente()
 	detector = Detector()
 	delta_t = 1.
@@ -127,17 +139,20 @@ def exp3():
 		hist_data.append(photones_detectados)
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente.intensidad * detector.eficiencia * delta_t) for k in theory_x]
-	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
-	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
-	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
-	plt.ylabel(r'$Frecuencia$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label='Simulación')
+	plt.plot(theory_x, theory_y, 'k--*', label='Distribución Teórica')
+	plt.xlabel('Número de Fotones Detectados')
+	plt.ylabel('Frecuencia')
 	plt.legend()
 	plt.xlim([0, 35])
 	plt.savefig('figd.jpg')
-	plt.show()
+	if argshow:
+		plt.show()
+	else:
+		plt.close()
 
 
-def exp4():
+def exp4(argshow):
 	fuente_detector = Fuente_Detector()
 	delta_t = 1.
 	N = int(fuente_detector.fuente.n * delta_t)
@@ -147,14 +162,17 @@ def exp4():
 		hist_data.append(photones_detectados)
 	theory_x = range(0, 40)
 	theory_y = [poisson(k, fuente_detector.eficiencia_conjunta * delta_t) for k in theory_x]
-	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label=r'$Simulaci\'on$')
-	plt.plot(theory_x, theory_y, 'k--*', label=r'$Distribuci\'on\ Te\'orica$')
-	plt.xlabel(r'$N\'umero\ de\ Fotones\ Detectados$')
-	plt.ylabel(r'$Frecuencia$')
+	my_hist(hist_data, bins=np.arange(-0.5, N + 1.5), label='Simulación')
+	plt.plot(theory_x, theory_y, 'k--*', label='Distribución Teórica')
+	plt.xlabel('Número de Fotones Detectados')
+	plt.ylabel('Frecuencia')
 	plt.legend()
 	plt.xlim([0, 35])
 	plt.savefig('fige.jpg')
-	plt.show()
+	if argshow:
+		plt.show()
+	else:
+		plt.close()
 
 
 def main(args):
@@ -168,22 +186,23 @@ def main(args):
 		print 'n = %s, p = %s, s= %s' % (n, p, s)
 	if 'b' in args.items:
 		print '-----b)-------'
-		exp1()
-
+		exp1(args.show)
 	if 'c' in args.items:
 		print '-----c)-------'
-		exp2()
+		exp2(args.show)
 	if 'd' in args.items:
 		print '-----d)-------'
-		exp3()
+		exp3(args.show)
 	if 'e' in args.items:
 		print '-----e)-------'
-		exp4()
+		exp4(args.show)
 
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Resuleve el ejercicio 15 de la guia 2.')
-	parser.add_argument('items', metavar='I', type=str, nargs='+',
-	                    help='Los items a resolver.')
+	parser.add_argument('-items', metavar='--I', type=str, nargs='+',
+	                    help='Los items a resolver.',
+	                    default='abcde')
+	parser.add_argument('-show', action='store_true')
 	args = parser.parse_args()
 	main(args)
